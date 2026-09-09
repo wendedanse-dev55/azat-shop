@@ -1,0 +1,29 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# env
+.env
+.env*.local
+
+# database
+*.db
+*.db-journal
+/prisma/dev.db
+/prisma/dev.db-journal
+
+# uploaded files
+/uploads
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*

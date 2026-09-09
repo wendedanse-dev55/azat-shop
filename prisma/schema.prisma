@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  // Pooled connection (used by the app at runtime on serverless).
+  url       = env("DATABASE_URL")
+  // Direct connection (used by `prisma db push` / migrations — pooled
+  // PgBouncer connections can't run the schema operations reliably).
+  directUrl = env("DIRECT_URL")
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  slug      String    @unique
+  createdAt DateTime  @default(now())
+  products  Product[]
+}
+
+model Product {
+  id           String    @id @default(cuid())
+  name         String
+  slug         String    @unique
+  description  String?
+  price        Float     @default(0)
+  oldPrice     Float?
+  stock        Int       @default(0)
+  sku          String?   @unique
+  imageUrl     String?
+  rating       Float     @default(0)
+  reviewsCount Int       @default(0)
+  categoryId   String?
+  category     Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Order {
+  id           String      @id @default(cuid())
+  customerName String
+  phone        String
+  comment      String?
+  total        Float       @default(0)
+  status       String      @default("new")
+  items        OrderItem[]
+  createdAt    DateTime    @default(now())
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String?
+  slug      String?
+  name      String
+  price     Float
+  qty       Int
+  imageUrl  String?
+}
