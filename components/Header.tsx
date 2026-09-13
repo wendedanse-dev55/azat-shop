@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useCart } from "./CartProvider";
 import SearchBar from "./SearchBar";
 import Logo from "./Logo";
+import CategoryIcon, { CATEGORY_COLORS } from "./CategoryIcon";
 
 interface Cat {
   id: string;
@@ -104,17 +105,26 @@ export default function Header({ categories }: { categories: Cat[] }) {
                 <p className="text-sm text-muted">Категории появятся после добавления товаров.</p>
               ) : (
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
-                  {categories.map((c) => (
-                    <Link
-                      key={c.id}
-                      href={`/category/${c.slug}`}
-                      onClick={() => setCatalogOpen(false)}
-                      className="flex items-center gap-2 rounded-xl border border-line px-4 py-3 text-sm font-medium text-ink transition-colors hover:border-brand hover:bg-brand-soft"
-                    >
-                      <span className="text-brand">▸</span>
-                      {c.name}
-                    </Link>
-                  ))}
+                  {categories.map((c, i) => {
+                    const color = CATEGORY_COLORS[i % CATEGORY_COLORS.length];
+                    return (
+                      <Link
+                        key={c.id}
+                        href={`/category/${c.slug}`}
+                        onClick={() => setCatalogOpen(false)}
+                        className="group flex items-center gap-2.5 rounded-xl border border-line px-3 py-2.5 text-sm font-medium text-ink transition-colors hover:border-brand hover:bg-brand-soft"
+                      >
+                        <span
+                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${color.bg} ${color.fg}`}
+                        >
+                          <CategoryIcon name={c.name} className="h-5 w-5" />
+                        </span>
+                        <span className="min-w-0 truncate group-hover:text-brand">
+                          {c.name}
+                        </span>
+                      </Link>
+                    );
+                  })}
                 </div>
               )}
             </div>

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import ProductCard from "@/components/ProductCard";
+import CategoryIcon from "@/components/CategoryIcon";
 import FiltersSidebar from "@/components/FiltersSidebar";
 import SortBar from "@/components/SortBar";
 import {
@@ -61,7 +62,12 @@ export default async function CategoryPage({
         <span className="text-ink">{category.name}</span>
       </nav>
 
-      <h1 className="text-2xl font-bold text-ink">{category.name}</h1>
+      <div className="flex items-center gap-3">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand">
+          <CategoryIcon name={category.name} className="h-6 w-6" />
+        </span>
+        <h1 className="text-2xl font-bold text-ink">{category.name}</h1>
+      </div>
 
       <div className="flex flex-col gap-6 lg:flex-row">
         <aside className="shrink-0 lg:w-64">

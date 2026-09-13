@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import ProductCard from "@/components/ProductCard";
 import HeroCarousel, { type HeroSlide } from "@/components/HeroCarousel";
+import CategoryIcon, { CATEGORY_COLORS } from "@/components/CategoryIcon";
 import { PRODUCT_CARD_SELECT } from "@/lib/product-query";
 import { pluralProducts } from "@/lib/format";
 import { productImages } from "@/lib/images";
@@ -52,25 +53,37 @@ export default async function HomePage() {
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {categories.map((c) => (
-              <Link
-                key={c.id}
-                href={`/category/${c.slug}`}
-                className="group flex items-center gap-3 rounded-2xl border border-line bg-white p-4 transition-colors hover:border-brand"
-              >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-lg font-bold text-brand">
-                  {c.name.charAt(0)}
-                </span>
-                <span className="min-w-0">
-                  <span className="block truncate font-medium text-ink group-hover:text-brand">
-                    {c.name}
+            {categories.map((c, i) => {
+              const color = CATEGORY_COLORS[i % CATEGORY_COLORS.length];
+              return (
+                <Link
+                  key={c.id}
+                  href={`/category/${c.slug}`}
+                  className="group relative flex items-center gap-3 overflow-hidden rounded-2xl border border-line bg-white p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand hover:shadow-lg hover:shadow-black/5"
+                >
+                  <span
+                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${color.bg} ${color.fg} transition-transform duration-200 group-hover:scale-110`}
+                  >
+                    <CategoryIcon name={c.name} className="h-6 w-6" />
                   </span>
-                  <span className="block text-xs text-muted">
-                    {pluralProducts(c._count.products)}
+                  <span className="min-w-0">
+                    <span className="block truncate font-semibold text-ink group-hover:text-brand">
+                      {c.name}
+                    </span>
+                    <span className="block text-xs text-muted">
+                      {pluralProducts(c._count.products)}
+                    </span>
                   </span>
-                </span>
-              </Link>
-            ))}
+                  <span
+                    className={`pointer-events-none absolute -right-8 -top-8 h-20 w-20 rounded-full ${color.bg} opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-70`}
+                    aria-hidden="true"
+                  />
+                  <span className="ml-auto shrink-0 translate-x-1 text-muted opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:text-brand group-hover:opacity-100">
+                    →
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </section>
       )}
