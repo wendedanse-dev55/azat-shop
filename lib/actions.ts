@@ -173,6 +173,51 @@ export async function deleteProduct(id: string) {
   revalidatePath("/");
 }
 
+// ---------- banners ----------
+
+async function bannerDataFromForm(formData: FormData) {
+  const title = str(formData, "title");
+  if (!title) throw new Error("Заголовок обязателен");
+  const uploaded = await saveImage(formData.get("image"));
+  const imageUrl = uploaded || str(formData, "imageUrl") || null;
+  return {
+    title,
+    description: str(formData, "description") || null,
+    tag: str(formData, "tag") || null,
+    imageUrl,
+    ctaLabel: str(formData, "ctaLabel") || null,
+    ctaHref: str(formData, "ctaHref") || null,
+    sortOrder: int(formData, "sortOrder"),
+    active: formData.get("active") != null,
+  };
+}
+
+export async function createBanner(formData: FormData) {
+  await assertAuth();
+  await prisma.banner.create({ data: await bannerDataFromForm(formData) });
+  revalidatePath("/admin/banners");
+  revalidatePath("/");
+  redirect("/admin/banners");
+}
+
+export async function updateBanner(id: string, formData: FormData) {
+  await assertAuth();
+  await prisma.banner.update({
+    where: { id },
+    data: await bannerDataFromForm(formData),
+  });
+  revalidatePath("/admin/banners");
+  revalidatePath("/");
+  redirect("/admin/banners");
+}
+
+export async function deleteBanner(id: string) {
+  await assertAuth();
+  await prisma.banner.delete({ where: { id } });
+  revalidatePath("/admin/banners");
+  revalidatePath("/");
+}
+
 // ---------- categories ----------
 
 export async function createCategory(formData: FormData) {

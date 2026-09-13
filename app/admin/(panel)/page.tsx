@@ -15,21 +15,28 @@ function formatDate(d: Date) {
 }
 
 export default async function DashboardPage() {
-  const [productCount, categoryCount, orderCount, revenueAgg, recentOrders] =
-    await Promise.all([
-      prisma.product.count(),
-      prisma.category.count(),
-      prisma.order.count(),
-      prisma.order.aggregate({
-        _sum: { total: true },
-        where: { status: { not: "canceled" } },
-      }),
-      prisma.order.findMany({
-        orderBy: { createdAt: "desc" },
-        take: 6,
-        include: { _count: { select: { items: true } } },
-      }),
-    ]);
+  const [
+    productCount,
+    categoryCount,
+    bannerCount,
+    orderCount,
+    revenueAgg,
+    recentOrders,
+  ] = await Promise.all([
+    prisma.product.count(),
+    prisma.category.count(),
+    prisma.banner.count(),
+    prisma.order.count(),
+    prisma.order.aggregate({
+      _sum: { total: true },
+      where: { status: { not: "canceled" } },
+    }),
+    prisma.order.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 6,
+      include: { _count: { select: { items: true } } },
+    }),
+  ]);
 
   const cards = [
     { label: "Заказов", value: orderCount, href: "/admin/orders" },
@@ -40,6 +47,7 @@ export default async function DashboardPage() {
     },
     { label: "Товаров", value: productCount, href: "/admin/products" },
     { label: "Категорий", value: categoryCount, href: "/admin/categories" },
+    { label: "Баннеров", value: bannerCount, href: "/admin/banners" },
   ];
 
   return (
@@ -62,7 +70,7 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
         {cards.map((c) => (
           <Link
             key={c.label}

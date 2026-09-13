@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { login } from "@/lib/actions";
+import Logo from "@/components/Logo";
 
 export const dynamic = "force-dynamic";
 
@@ -16,8 +17,8 @@ export default async function LoginPage({
         action={login}
         className="w-full max-w-sm space-y-4 rounded-2xl border border-line bg-white p-8 shadow-sm"
       >
-        <Link href="/" className="block text-center text-2xl font-extrabold tracking-tight text-ink">
-          <span className="text-brand">Azat</span>Shop
+        <Link href="/" className="flex justify-center">
+          <Logo size={40} />
         </Link>
         <h1 className="text-center text-lg font-bold text-ink">Вход в админ-панель</h1>
 

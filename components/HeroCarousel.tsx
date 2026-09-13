@@ -8,8 +8,8 @@ export interface HeroSlide {
   eyebrow?: string;
   title: string;
   subtitle?: string;
-  ctaLabel: string;
-  ctaHref: string;
+  ctaLabel?: string;
+  ctaHref?: string;
   /** Tailwind classes for the slide background (a gradient). */
   theme: string;
   /** Optional product/lifestyle image shown on the right. */
@@ -92,13 +92,15 @@ export default function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                     {s.subtitle && (
                       <p className="mt-3 max-w-lg text-white/85">{s.subtitle}</p>
                     )}
-                    <Link
-                      href={s.ctaHref}
-                      tabIndex={i === index ? 0 : -1}
-                      className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-semibold text-ink transition-transform hover:scale-[1.02]"
-                    >
-                      {s.ctaLabel} →
-                    </Link>
+                    {s.ctaLabel && (
+                      <Link
+                        href={s.ctaHref || "/catalog"}
+                        tabIndex={i === index ? 0 : -1}
+                        className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-semibold text-ink transition-transform hover:scale-[1.02]"
+                      >
+                        {s.ctaLabel} →
+                      </Link>
+                    )}
                   </div>
 
                   {s.image && (

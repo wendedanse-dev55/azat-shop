@@ -9,6 +9,7 @@ const links = [
   { href: "/admin/orders", label: "Заказы" },
   { href: "/admin/products", label: "Товары" },
   { href: "/admin/categories", label: "Категории" },
+  { href: "/admin/banners", label: "Баннеры" },
   { href: "/admin/import", label: "Импорт Excel" },
 ];
 
@@ -21,7 +22,7 @@ export default function AdminSidebar() {
   return (
     <aside className="flex w-56 shrink-0 flex-col bg-gray-900 p-4 text-gray-100">
       <div className="mb-8 px-2 text-lg font-extrabold tracking-tight">
-        <span className="text-brand">Azat</span> Admin
+        <span className="text-brand">Salqyn</span> Admin
       </div>
 
       <nav className="flex flex-col gap-1 text-sm">

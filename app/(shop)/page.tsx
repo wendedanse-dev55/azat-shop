@@ -9,7 +9,11 @@ import { productImages } from "@/lib/images";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const [categories, discounted, popular] = await Promise.all([
+  const [banners, categories, discounted, popular] = await Promise.all([
+    prisma.banner.findMany({
+      where: { active: true },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+    }),
     prisma.category.findMany({
       orderBy: { name: "asc" },
       include: { _count: { select: { products: true } } },
@@ -29,8 +33,14 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-10">
-      {/* Hero slideshow */}
-      <HeroCarousel slides={buildHeroSlides(discounted, popular)} />
+      {/* Hero slideshow — admin banners if any, otherwise auto promo slides */}
+      <HeroCarousel
+        slides={
+          banners.length
+            ? bannersToSlides(banners)
+            : buildHeroSlides(discounted, popular)
+        }
+      />
 
       {/* Categories */}
       {categories.length > 0 && (
@@ -91,6 +101,38 @@ export default async function HomePage() {
 }
 
 type CardProduct = React.ComponentProps<typeof ProductCard>["product"];
+
+const HERO_THEMES = [
+  "bg-gradient-to-br from-brand to-brand-dark",
+  "bg-gradient-to-br from-[#082f49] via-brand-dark to-brand",
+  "bg-gradient-to-tr from-brand-dark via-brand to-[#38bdf8]",
+  "bg-gradient-to-br from-[#082f49] via-brand-dark to-[#0ea5e9]",
+];
+
+// Admin-managed banners → hero slides. The gradient is auto-assigned so
+// editors only manage content (tag / title / description / photo / button).
+function bannersToSlides(
+  banners: {
+    id: string;
+    title: string;
+    description: string | null;
+    tag: string | null;
+    imageUrl: string | null;
+    ctaLabel: string | null;
+    ctaHref: string | null;
+  }[],
+): HeroSlide[] {
+  return banners.map((b, i) => ({
+    id: b.id,
+    eyebrow: b.tag ?? undefined,
+    title: b.title,
+    subtitle: b.description ?? undefined,
+    ctaLabel: b.ctaLabel ?? undefined,
+    ctaHref: b.ctaHref ?? undefined,
+    theme: HERO_THEMES[i % HERO_THEMES.length],
+    image: b.imageUrl,
+  }));
+}
 
 // Compose the hero slideshow from a couple of evergreen promos plus real
 // featured products (so the banner stays alive as the catalog changes).
