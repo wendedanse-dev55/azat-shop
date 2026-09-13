@@ -9,9 +9,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Azat Shop — интернет-магазин",
+  title: "Salqyn Store — холодильники, кондиционеры и техника",
   description:
-    "Интернет-магазин на Next.js: категории, поиск, корзина, админка и импорт товаров из Excel",
+    "Salqyn Store — интернет-магазин холодильников, кондиционеров и бытовой техники с быстрой доставкой.",
 };
 
 export default function RootLayout({

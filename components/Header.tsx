@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useCart } from "./CartProvider";
 import SearchBar from "./SearchBar";
+import Logo from "./Logo";
 
 interface Cat {
   id: string;
@@ -27,11 +28,8 @@ export default function Header({ categories }: { categories: Cat[] }) {
     <header className="sticky top-0 z-50 border-b border-line bg-white">
       <div className="mx-auto max-w-7xl px-4">
         <div className="flex items-center gap-3 py-3">
-          <Link
-            href="/"
-            className="flex shrink-0 items-center text-xl font-extrabold tracking-tight text-ink"
-          >
-            <span className="text-brand">Azat</span>Shop
+          <Link href="/" aria-label="Salqyn Store — на главную" className="flex shrink-0 items-center">
+            <Logo size={38} />
           </Link>
 
           <button

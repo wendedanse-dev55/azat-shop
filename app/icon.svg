@@ -1,0 +1,17 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ice" x1="6" y1="8" x2="42" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38BDF8"/><stop offset="0.5" stop-color="#0EA5E9"/><stop offset="1" stop-color="#0369A1"/>
+    </linearGradient>
+  </defs>
+  <polygon points="42,24 33,39.59 15,39.59 6,24 15,8.41 33,8.41" fill="url(#ice)" stroke="url(#ice)" stroke-width="8" stroke-linejoin="round"/>
+  <g transform="translate(24 24)" stroke="#fff" stroke-width="2.4" stroke-linecap="round">
+    <g><line y2="-14"/><line y1="-6.5" x2="3.98" y2="-8.8"/><line y1="-6.5" x2="-3.98" y2="-8.8"/><line y1="-10" x2="2.94" y2="-11.7"/><line y1="-10" x2="-2.94" y2="-11.7"/></g>
+    <g transform="rotate(60)"><line y2="-14"/><line y1="-6.5" x2="3.98" y2="-8.8"/><line y1="-6.5" x2="-3.98" y2="-8.8"/><line y1="-10" x2="2.94" y2="-11.7"/><line y1="-10" x2="-2.94" y2="-11.7"/></g>
+    <g transform="rotate(120)"><line y2="-14"/><line y1="-6.5" x2="3.98" y2="-8.8"/><line y1="-6.5" x2="-3.98" y2="-8.8"/><line y1="-10" x2="2.94" y2="-11.7"/><line y1="-10" x2="-2.94" y2="-11.7"/></g>
+    <g transform="rotate(180)"><line y2="-14"/><line y1="-6.5" x2="3.98" y2="-8.8"/><line y1="-6.5" x2="-3.98" y2="-8.8"/><line y1="-10" x2="2.94" y2="-11.7"/><line y1="-10" x2="-2.94" y2="-11.7"/></g>
+    <g transform="rotate(240)"><line y2="-14"/><line y1="-6.5" x2="3.98" y2="-8.8"/><line y1="-6.5" x2="-3.98" y2="-8.8"/><line y1="-10" x2="2.94" y2="-11.7"/><line y1="-10" x2="-2.94" y2="-11.7"/></g>
+    <g transform="rotate(300)"><line y2="-14"/><line y1="-6.5" x2="3.98" y2="-8.8"/><line y1="-6.5" x2="-3.98" y2="-8.8"/><line y1="-10" x2="2.94" y2="-11.7"/><line y1="-10" x2="-2.94" y2="-11.7"/></g>
+  </g>
+  <circle cx="24" cy="24" r="2.2" fill="#fff"/>
+</svg>

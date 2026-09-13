@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "./Logo";
 
 export default function Footer() {
   return (
@@ -6,12 +7,10 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-10">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           <div className="col-span-2 md:col-span-1">
-            <div className="text-xl font-extrabold tracking-tight text-ink">
-              <span className="text-brand">Azat</span>Shop
-            </div>
+            <Logo size={34} />
             <p className="mt-3 max-w-xs text-sm text-muted">
-              Демо интернет-магазина на Next.js: каталог с категориями, поиск,
-              корзина и импорт товаров из Excel.
+              Холодильники, кондиционеры и бытовая техника — с быстрой доставкой
+              и гарантией качества.
             </p>
           </div>
 
@@ -36,13 +35,13 @@ export default function Footer() {
             <p className="mb-3 text-sm font-semibold text-ink">Контакты</p>
             <ul className="space-y-2 text-sm text-muted">
               <li>Пн–Вс, 9:00–21:00</li>
-              <li>support@azatshop.demo</li>
+              <li>support@salqyn.store</li>
             </ul>
           </div>
         </div>
 
         <div className="mt-8 border-t border-line pt-6 text-sm text-muted">
-          © {new Date().getFullYear()} Azat Shop. Демо-проект.
+          © {new Date().getFullYear()} Salqyn Store. Все права защищены.
         </div>
       </div>
     </footer>
