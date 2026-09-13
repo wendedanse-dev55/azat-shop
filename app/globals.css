@@ -5,21 +5,21 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, sans-serif;
 
-  /* Brand palette — inspired by Upwork's green identity */
-  --color-brand: #14a800;
-  --color-brand-dark: #108a00;
-  --color-brand-hover: #0e7c00;
-  --color-brand-soft: #eafbe6;
-  --color-brand-tint: #cdeccd;
+  /* Brand palette — icy blue, matching the Salqyn snowflake logo */
+  --color-brand: #0284c7;
+  --color-brand-dark: #075985;
+  --color-brand-hover: #0369a1;
+  --color-brand-soft: #e0f2fe;
+  --color-brand-tint: #bae6fd;
 
-  /* Ink / text (Upwork uses a dark green-black) */
-  --color-ink: #001e00;
-  --color-body: #3c4a3c;
-  --color-muted: #5e6d55;
+  /* Ink / text — cool slate to match the cold theme */
+  --color-ink: #0b1b2b;
+  --color-body: #334155;
+  --color-muted: #64748b;
 
   /* Surfaces & lines */
-  --color-line: #e4ebe4;
-  --color-canvas: #f5f8f5;
+  --color-line: #e2e8f0;
+  --color-canvas: #f2f7fb;
 
   /* Marketplace accents (Ozon-style) */
   --color-sale: #e5322d;
@@ -39,7 +39,7 @@ body {
 
 /* Placeholder tint while images load */
 img {
-  background-color: #eef2ee;
+  background-color: #eaf1f8;
 }
 
 /* Hide number input spinners for a cleaner admin form */

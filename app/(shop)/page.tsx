@@ -124,7 +124,7 @@ function buildHeroSlides(
       subtitle: "Успейте купить по специальной цене — количество ограничено.",
       ctaLabel: "Смотреть товар",
       ctaHref: `/product/${topDeal.slug}`,
-      theme: "bg-gradient-to-br from-[#00401f] via-brand-dark to-brand",
+      theme: "bg-gradient-to-br from-[#082f49] via-brand-dark to-brand",
       image: pickImage(topDeal),
     });
   }
@@ -137,7 +137,7 @@ function buildHeroSlides(
       subtitle: "Один из самых популярных товаров у наших покупателей.",
       ctaLabel: "Подробнее",
       ctaHref: `/product/${topPopular.slug}`,
-      theme: "bg-gradient-to-tr from-brand-dark via-brand to-[#4cc23a]",
+      theme: "bg-gradient-to-tr from-brand-dark via-brand to-[#38bdf8]",
       image: pickImage(topPopular),
     });
   }
@@ -149,7 +149,7 @@ function buildHeroSlides(
     subtitle: "Оформите заказ сегодня — привезём уже на следующий день.",
     ctaLabel: "Собрать корзину",
     ctaHref: "/catalog",
-    theme: "bg-gradient-to-br from-[#0b3d2e] via-brand-dark to-[#1fa10c]",
+    theme: "bg-gradient-to-br from-[#082f49] via-brand-dark to-[#0ea5e9]",
     image: null,
   });
 
