@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { productImages } from "@/lib/images";
 
 interface Category {
   id: string;
@@ -13,6 +14,7 @@ interface ProductValues {
   stock?: number;
   sku?: string | null;
   imageUrl?: string | null;
+  images?: string[] | null;
   rating?: number;
   reviewsCount?: number;
   categoryId?: string | null;
@@ -35,6 +37,7 @@ export default function ProductForm({
   product,
   submitLabel = "Сохранить",
 }: Props) {
+  const currentImages = product ? productImages(product) : [];
   return (
     <form action={action} className="max-w-2xl space-y-5">
       <div>
@@ -95,7 +98,7 @@ export default function ProductForm({
       </div>
 
       <div className="rounded-xl border border-dashed border-line p-4">
-        <label className={labelClass} htmlFor="image">Изображение (загрузить файл)</label>
+        <label className={labelClass} htmlFor="image">Загрузить файл (станет главным фото)</label>
         <input
           id="image"
           name="image"
@@ -103,15 +106,42 @@ export default function ProductForm({
           accept="image/*"
           className="block w-full text-sm text-body file:mr-3 file:rounded-md file:border-0 file:bg-brand file:px-3 file:py-2 file:text-sm file:text-white hover:file:bg-brand-hover"
         />
-        {product?.imageUrl && (
-          <div className="mt-3 flex items-center gap-3">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={product.imageUrl} alt="" className="h-16 w-16 rounded-lg object-cover" />
-            <span className="text-xs text-muted">Текущее изображение</span>
+
+        {currentImages.length > 0 && (
+          <div className="mt-3">
+            <span className="text-xs text-muted">
+              Текущие изображения ({currentImages.length}) — первое главное:
+            </span>
+            <div className="no-scrollbar mt-2 flex gap-2 overflow-x-auto">
+              {currentImages.map((src, i) => (
+                <div key={`${src}-${i}`} className="relative shrink-0">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={src} alt="" className="h-16 w-16 rounded-lg object-cover" />
+                  {i === 0 && (
+                    <span className="absolute left-0 top-0 rounded-br-lg rounded-tl-lg bg-brand px-1 text-[10px] font-semibold text-white">
+                      главное
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         )}
-        <p className="mt-3 text-sm text-muted">…или укажите ссылку на изображение:</p>
-        <input name="imageUrl" defaultValue={product?.imageUrl ?? ""} className={`${inputClass} mt-1`} placeholder="https://..." />
+
+        <label className="mt-3 block text-sm text-muted" htmlFor="imageUrl">
+          …или укажите ссылки на изображения (можно несколько — через запятую или с новой строки):
+        </label>
+        <textarea
+          id="imageUrl"
+          name="imageUrl"
+          rows={3}
+          defaultValue={currentImages.join("\n")}
+          className={`${inputClass} mt-1`}
+          placeholder={"https://.../photo-1.jpg,\nhttps://.../photo-2.jpg"}
+        />
+        <p className="mt-1 text-xs text-muted">
+          Первая ссылка станет главным фото, остальные попадут в слайдер на странице товара.
+        </p>
       </div>
 
       <div className="flex items-center gap-3 pt-2">

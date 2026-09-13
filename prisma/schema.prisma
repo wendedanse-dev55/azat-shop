@@ -29,6 +29,7 @@ model Product {
   stock        Int       @default(0)
   sku          String?   @unique
   imageUrl     String?
+  images       String[]  @default([])
   rating       Float     @default(0)
   reviewsCount Int       @default(0)
   categoryId   String?

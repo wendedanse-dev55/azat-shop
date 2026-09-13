@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import ProductCard from "@/components/ProductCard";
+import HeroCarousel, { type HeroSlide } from "@/components/HeroCarousel";
 import { PRODUCT_CARD_SELECT } from "@/lib/product-query";
 import { pluralProducts } from "@/lib/format";
+import { productImages } from "@/lib/images";
 
 export const dynamic = "force-dynamic";
 
@@ -27,24 +29,8 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-10">
-      {/* Hero */}
-      <section className="overflow-hidden rounded-3xl bg-gradient-to-br from-brand to-brand-dark px-6 py-12 text-white sm:px-12 sm:py-16">
-        <span className="inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-semibold">
-          Скидки до 30%
-        </span>
-        <h1 className="mt-4 max-w-2xl text-3xl font-extrabold leading-tight sm:text-5xl">
-          Тысячи товаров с быстрой доставкой
-        </h1>
-        <p className="mt-3 max-w-lg text-white/85">
-          Электроника, одежда, товары для дома и спорта — всё в одном месте.
-        </p>
-        <Link
-          href="/catalog"
-          className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-semibold text-brand transition-transform hover:scale-[1.02]"
-        >
-          Перейти в каталог →
-        </Link>
-      </section>
+      {/* Hero slideshow */}
+      <HeroCarousel slides={buildHeroSlides(discounted, popular)} />
 
       {/* Categories */}
       {categories.length > 0 && (
@@ -102,6 +88,72 @@ export default async function HomePage() {
       )}
     </div>
   );
+}
+
+type CardProduct = React.ComponentProps<typeof ProductCard>["product"];
+
+// Compose the hero slideshow from a couple of evergreen promos plus real
+// featured products (so the banner stays alive as the catalog changes).
+function buildHeroSlides(
+  discounted: CardProduct[],
+  popular: CardProduct[],
+): HeroSlide[] {
+  const pickImage = (p?: CardProduct) => (p ? productImages(p)[0] ?? null : null);
+  const topDeal = discounted.find((p) => p.imageUrl);
+  const topPopular = popular.find((p) => p.imageUrl && p.id !== topDeal?.id);
+
+  const slides: HeroSlide[] = [
+    {
+      id: "promo-catalog",
+      eyebrow: "Скидки до 30%",
+      title: "Тысячи товаров с быстрой доставкой",
+      subtitle:
+        "Электроника, одежда, товары для дома и спорта — всё в одном месте.",
+      ctaLabel: "Перейти в каталог",
+      ctaHref: "/catalog",
+      theme: "bg-gradient-to-br from-brand to-brand-dark",
+      image: pickImage(topDeal),
+    },
+  ];
+
+  if (topDeal) {
+    slides.push({
+      id: `deal-${topDeal.id}`,
+      eyebrow: "Скидка дня",
+      title: topDeal.name,
+      subtitle: "Успейте купить по специальной цене — количество ограничено.",
+      ctaLabel: "Смотреть товар",
+      ctaHref: `/product/${topDeal.slug}`,
+      theme: "bg-gradient-to-br from-[#00401f] via-brand-dark to-brand",
+      image: pickImage(topDeal),
+    });
+  }
+
+  if (topPopular) {
+    slides.push({
+      id: `hit-${topPopular.id}`,
+      eyebrow: "Хит продаж",
+      title: topPopular.name,
+      subtitle: "Один из самых популярных товаров у наших покупателей.",
+      ctaLabel: "Подробнее",
+      ctaHref: `/product/${topPopular.slug}`,
+      theme: "bg-gradient-to-tr from-brand-dark via-brand to-[#4cc23a]",
+      image: pickImage(topPopular),
+    });
+  }
+
+  slides.push({
+    id: "promo-delivery",
+    eyebrow: "Доставим завтра",
+    title: "Бесплатная доставка от 10 000 ₸",
+    subtitle: "Оформите заказ сегодня — привезём уже на следующий день.",
+    ctaLabel: "Собрать корзину",
+    ctaHref: "/catalog",
+    theme: "bg-gradient-to-br from-[#0b3d2e] via-brand-dark to-[#1fa10c]",
+    image: null,
+  });
+
+  return slides;
 }
 
 function ProductSection({

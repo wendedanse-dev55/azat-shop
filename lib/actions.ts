@@ -9,6 +9,7 @@ import { prisma } from "./prisma";
 import { uniqueProductSlug, uniqueCategorySlug } from "./unique-slug";
 import { SESSION_COOKIE, expectedToken, isAuthenticated } from "./auth";
 import { uploadsDir, uploadUrl } from "./uploads";
+import { parseImageList } from "./images";
 
 // ---------- helpers ----------
 
@@ -96,7 +97,11 @@ export async function createProduct(formData: FormData) {
   if (!name) throw new Error("Название обязательно");
 
   const uploaded = await saveImage(formData.get("image"));
-  const imageUrl = uploaded || str(formData, "imageUrl") || null;
+  // The image field accepts several links (comma/newline separated). An
+  // uploaded file, if any, becomes the primary image.
+  const urlList = parseImageList(str(formData, "imageUrl"));
+  const images = uploaded ? [uploaded, ...urlList] : urlList;
+  const imageUrl = images[0] ?? null;
   const categoryId = str(formData, "categoryId") || null;
   const sku = str(formData, "sku") || null;
   const oldPriceVal = num(formData, "oldPrice");
@@ -111,6 +116,7 @@ export async function createProduct(formData: FormData) {
       stock: int(formData, "stock"),
       sku,
       imageUrl,
+      images,
       rating: Math.min(5, Math.max(0, num(formData, "rating"))),
       reviewsCount: int(formData, "reviewsCount"),
       categoryId,
@@ -128,9 +134,11 @@ export async function updateProduct(id: string, formData: FormData) {
   if (!name) throw new Error("Название обязательно");
 
   const uploaded = await saveImage(formData.get("image"));
-  const imageUrlInput = str(formData, "imageUrl");
-  // Keep old image if nothing new was provided.
-  const imageUrl = uploaded || imageUrlInput || null;
+  // The links textarea holds the full gallery; an uploaded file is prepended
+  // as the new primary image.
+  const urlList = parseImageList(str(formData, "imageUrl"));
+  const images = uploaded ? [uploaded, ...urlList] : urlList;
+  const imageUrl = images[0] ?? null;
   const categoryId = str(formData, "categoryId") || null;
   const sku = str(formData, "sku") || null;
   const oldPriceVal = num(formData, "oldPrice");
@@ -146,6 +154,7 @@ export async function updateProduct(id: string, formData: FormData) {
       stock: int(formData, "stock"),
       sku,
       imageUrl,
+      images,
       rating: Math.min(5, Math.max(0, num(formData, "rating"))),
       reviewsCount: int(formData, "reviewsCount"),
       categoryId,

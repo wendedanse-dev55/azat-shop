@@ -17,7 +17,7 @@ export async function GET() {
     { header: "Артикул", key: "sku", width: 16 },
     { header: "Рейтинг", key: "rating", width: 10 },
     { header: "Отзывы", key: "reviewsCount", width: 10 },
-    { header: "Изображение", key: "imageUrl", width: 40 },
+    { header: "Изображения", key: "imageUrl", width: 60 },
   ];
 
   ws.getRow(1).font = { bold: true };
@@ -37,7 +37,10 @@ export async function GET() {
     sku: "EL-001",
     rating: 4.8,
     reviewsCount: 1243,
-    imageUrl: "https://picsum.photos/seed/example/600/600",
+    // Несколько фото — через запятую. Первое станет главным, остальные
+    // попадут в слайдер на странице товара.
+    imageUrl:
+      "https://picsum.photos/seed/example1/600/600, https://picsum.photos/seed/example2/600/600, https://picsum.photos/seed/example3/600/600",
   });
   ws.addRow({
     name: "Пример: Футболка",
@@ -49,7 +52,7 @@ export async function GET() {
     sku: "CL-001",
     rating: 4.5,
     reviewsCount: 320,
-    imageUrl: "",
+    imageUrl: "https://picsum.photos/seed/tshirt/600/600",
   });
 
   const buffer = await wb.xlsx.writeBuffer();

@@ -4,6 +4,7 @@ import ExcelJS from "exceljs";
 import { prisma } from "@/lib/prisma";
 import { uniqueProductSlug, uniqueCategorySlug } from "@/lib/unique-slug";
 import { isAuthenticated } from "@/lib/auth";
+import { parseImageList } from "@/lib/images";
 
 export const runtime = "nodejs";
 
@@ -51,11 +52,17 @@ const HEADER_MAP: Record<string, string> = {
   sku: "sku",
 
   изображение: "imageUrl",
+  изображения: "imageUrl",
   картинка: "imageUrl",
+  картинки: "imageUrl",
   фото: "imageUrl",
+  "ссылки на фото": "imageUrl",
+  галерея: "imageUrl",
   image: "imageUrl",
+  images: "imageUrl",
   imageurl: "imageUrl",
   "image url": "imageUrl",
+  gallery: "imageUrl",
 };
 
 function normalizeHeader(h: string): string {
@@ -141,7 +148,10 @@ export async function POST(req: NextRequest) {
       const stock = parseInt(data.stock || "0", 10) || 0;
       const description = data.description?.trim() || null;
       const sku = data.sku?.trim() || null;
-      const imageUrl = data.imageUrl?.trim() || null;
+      // One cell may hold several links separated by commas — split them into a
+      // gallery and keep the first as the primary image.
+      const images = parseImageList(data.imageUrl);
+      const imageUrl = images[0] ?? null;
       const rating = Math.min(
         5,
         Math.max(0, parseFloat((data.rating || "0").replace(",", ".")) || 0),
@@ -181,6 +191,7 @@ export async function POST(req: NextRequest) {
             stock,
             description,
             imageUrl,
+            images,
             rating,
             reviewsCount,
             categoryId,
@@ -198,6 +209,7 @@ export async function POST(req: NextRequest) {
             description,
             sku,
             imageUrl,
+            images,
             rating,
             reviewsCount,
             categoryId,

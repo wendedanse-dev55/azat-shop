@@ -145,7 +145,19 @@ export async function seed() {
   console.log("Seeding products...");
   for (const p of products) {
     const { category, ...rest } = p;
-    const data = { ...rest, categoryId: catByName[category] ?? null };
+    // Give every product a small gallery so the product-page slideshow has
+    // something to show. The first image stays the primary `imageUrl`.
+    const images = [
+      `https://picsum.photos/seed/${p.slug}-1/600/600`,
+      `https://picsum.photos/seed/${p.slug}-2/600/600`,
+      `https://picsum.photos/seed/${p.slug}-3/600/600`,
+    ];
+    const data = {
+      ...rest,
+      imageUrl: rest.imageUrl ?? images[0],
+      images,
+      categoryId: catByName[category] ?? null,
+    };
     await prisma.product.upsert({
       where: { slug: p.slug },
       update: data,

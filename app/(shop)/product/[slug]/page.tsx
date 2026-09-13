@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Stars from "@/components/Stars";
 import ProductBuyBox from "@/components/ProductBuyBox";
+import ProductGallery from "@/components/ProductGallery";
 import { formatCount } from "@/lib/format";
+import { productImages } from "@/lib/images";
 
 export const dynamic = "force-dynamic";
 
@@ -38,22 +40,7 @@ export default async function ProductPage({
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_320px]">
         {/* Gallery */}
-        <div className="overflow-hidden rounded-2xl border border-line bg-white p-3">
-          <div className="aspect-square overflow-hidden rounded-xl bg-gray-50">
-            {product.imageUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={product.imageUrl}
-                alt={product.name}
-                className="h-full w-full object-cover"
-              />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center text-muted">
-                Нет фото
-              </div>
-            )}
-          </div>
-        </div>
+        <ProductGallery images={productImages(product)} name={product.name} />
 
         {/* Info */}
         <div className="space-y-4">
