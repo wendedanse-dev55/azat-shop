@@ -2,7 +2,9 @@ import Link from "next/link";
 import AddToCartButton from "./AddToCartButton";
 import PriceBlock from "./PriceBlock";
 import Stars from "./Stars";
+import ProductCardMedia from "./ProductCardMedia";
 import { discountPercent } from "@/lib/format";
+import { productImages } from "@/lib/images";
 
 interface Product {
   id: string;
@@ -11,6 +13,7 @@ interface Product {
   price: number;
   oldPrice: number | null;
   imageUrl: string | null;
+  images?: string[] | null;
   stock: number;
   rating: number;
   reviewsCount: number;
@@ -31,18 +34,7 @@ export default function ProductCard({ product }: { product: Product }) {
             −{disc}%
           </span>
         )}
-        {product.imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={product.imageUrl}
-            alt={product.name}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center text-sm text-muted">
-            Нет фото
-          </div>
-        )}
+        <ProductCardMedia images={productImages(product)} name={product.name} />
       </Link>
 
       <div className="flex flex-1 flex-col gap-2 pt-3">

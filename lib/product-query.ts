@@ -63,6 +63,7 @@ export const PRODUCT_CARD_SELECT = {
   price: true,
   oldPrice: true,
   imageUrl: true,
+  images: true,
   stock: true,
   rating: true,
   reviewsCount: true,
