@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import ProductCard from "@/components/ProductCard";
 import HeroCarousel, { type HeroSlide } from "@/components/HeroCarousel";
 import CategoryIcon, { CATEGORY_COLORS } from "@/components/CategoryIcon";
+import ServicesSection from "@/components/ServicesSection";
 import { PRODUCT_CARD_SELECT } from "@/lib/product-query";
 import { pluralProducts } from "@/lib/format";
 import { productImages } from "@/lib/images";
@@ -87,6 +88,9 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      {/* Services */}
+      <ServicesSection />
 
       {/* Discounts */}
       {discounted.length > 0 && (

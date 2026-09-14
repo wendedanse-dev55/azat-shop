@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Logo from "./Logo";
+import { SITE_PHONE } from "@/lib/site";
 
 export default function Footer() {
   return (
@@ -34,6 +35,11 @@ export default function Footer() {
           <div>
             <p className="mb-3 text-sm font-semibold text-ink">Контакты</p>
             <ul className="space-y-2 text-sm text-muted">
+              <li>
+                <a href={`tel:${SITE_PHONE.replace(/\s/g, "")}`} className="hover:text-brand">
+                  {SITE_PHONE}
+                </a>
+              </li>
               <li>Пн–Вс, 9:00–21:00</li>
               <li>support@salqyn.store</li>
             </ul>
