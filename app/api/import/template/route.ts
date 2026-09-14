@@ -18,6 +18,8 @@ export async function GET() {
     { header: "Рейтинг", key: "rating", width: 10 },
     { header: "Отзывы", key: "reviewsCount", width: 10 },
     { header: "Изображения", key: "imageUrl", width: 60 },
+    { header: "Поставщик", key: "supplier", width: 22 },
+    { header: "Телефон поставщика", key: "supplierPhone", width: 20 },
   ];
 
   ws.getRow(1).font = { bold: true };
@@ -41,6 +43,8 @@ export async function GET() {
     // попадут в слайдер на странице товара.
     imageUrl:
       "https://picsum.photos/seed/example1/600/600, https://picsum.photos/seed/example2/600/600, https://picsum.photos/seed/example3/600/600",
+    supplier: "ТОО Электроснаб",
+    supplierPhone: "+7 700 123 45 67",
   });
   ws.addRow({
     name: "Пример: Футболка",
@@ -53,6 +57,8 @@ export async function GET() {
     rating: 4.5,
     reviewsCount: 320,
     imageUrl: "https://picsum.photos/seed/tshirt/600/600",
+    supplier: "ИП Хабибулин",
+    supplierPhone: "+7 701 987 65 43",
   });
 
   const buffer = await wb.xlsx.writeBuffer();

@@ -30,12 +30,14 @@ model Product {
   sku          String?   @unique
   imageUrl     String?
   images       String[]  @default([])
-  rating       Float     @default(0)
-  reviewsCount Int       @default(0)
-  categoryId   String?
-  category     Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  rating        Float     @default(0)
+  reviewsCount  Int       @default(0)
+  supplier      String?
+  supplierPhone String?
+  categoryId    String?
+  category      Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 model Banner {
@@ -64,13 +66,15 @@ model Order {
 }
 
 model OrderItem {
-  id        String  @id @default(cuid())
-  orderId   String
-  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  productId String?
-  slug      String?
-  name      String
-  price     Float
-  qty       Int
-  imageUrl  String?
+  id            String  @id @default(cuid())
+  orderId       String
+  order         Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId     String?
+  slug          String?
+  name          String
+  price         Float
+  qty           Int
+  imageUrl      String?
+  supplier      String?
+  supplierPhone String?
 }

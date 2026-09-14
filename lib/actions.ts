@@ -105,6 +105,8 @@ export async function createProduct(formData: FormData) {
   const categoryId = str(formData, "categoryId") || null;
   const sku = str(formData, "sku") || null;
   const oldPriceVal = num(formData, "oldPrice");
+  const supplier = str(formData, "supplier") || null;
+  const supplierPhone = str(formData, "supplierPhone") || null;
 
   await prisma.product.create({
     data: {
@@ -117,6 +119,8 @@ export async function createProduct(formData: FormData) {
       sku,
       imageUrl,
       images,
+      supplier,
+      supplierPhone,
       rating: Math.min(5, Math.max(0, num(formData, "rating"))),
       reviewsCount: int(formData, "reviewsCount"),
       categoryId,
@@ -142,6 +146,8 @@ export async function updateProduct(id: string, formData: FormData) {
   const categoryId = str(formData, "categoryId") || null;
   const sku = str(formData, "sku") || null;
   const oldPriceVal = num(formData, "oldPrice");
+  const supplier = str(formData, "supplier") || null;
+  const supplierPhone = str(formData, "supplierPhone") || null;
 
   await prisma.product.update({
     where: { id },
@@ -155,6 +161,8 @@ export async function updateProduct(id: string, formData: FormData) {
       sku,
       imageUrl,
       images,
+      supplier,
+      supplierPhone,
       rating: Math.min(5, Math.max(0, num(formData, "rating"))),
       reviewsCount: int(formData, "reviewsCount"),
       categoryId,
@@ -286,6 +294,8 @@ export async function createOrder(
     price: number;
     qty: number;
     imageUrl: string | null;
+    supplier: string | null;
+    supplierPhone: string | null;
   }[] = [];
   let total = 0;
 
@@ -301,6 +311,8 @@ export async function createOrder(
       price: p.price,
       qty,
       imageUrl: p.imageUrl,
+      supplier: p.supplier,
+      supplierPhone: p.supplierPhone,
     });
   }
 

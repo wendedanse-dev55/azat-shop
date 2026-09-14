@@ -33,6 +33,18 @@ export default async function OrderDetailPage({
 
   const s = statusInfo(order.status);
 
+  // Unique suppliers to call for this order (deduped by name + phone).
+  const suppliers = Array.from(
+    new Map(
+      order.items
+        .filter((it) => it.supplier || it.supplierPhone)
+        .map((it) => [
+          `${it.supplier ?? ""}|${it.supplierPhone ?? ""}`,
+          { name: it.supplier, phone: it.supplierPhone },
+        ]),
+    ).values(),
+  );
+
   return (
     <div className="max-w-4xl space-y-6">
       <nav className="text-sm text-muted">
@@ -85,6 +97,22 @@ export default async function OrderDetailPage({
                         </Link>
                       ) : (
                         <span className="font-medium text-ink">{it.name}</span>
+                      )}
+                      {(it.supplier || it.supplierPhone) && (
+                        <div className="mt-1 text-xs text-muted">
+                          Поставщик: {it.supplier ?? "—"}
+                          {it.supplierPhone && (
+                            <>
+                              {" · "}
+                              <a
+                                href={`tel:${it.supplierPhone}`}
+                                className="font-medium text-brand hover:underline"
+                              >
+                                {it.supplierPhone}
+                              </a>
+                            </>
+                          )}
+                        </div>
                       )}
                     </td>
                     <td className="px-4 py-3 text-right text-muted">
@@ -140,6 +168,32 @@ export default async function OrderDetailPage({
               )}
             </dl>
           </div>
+
+          {suppliers.length > 0 && (
+            <div className="rounded-2xl border border-line bg-white p-5">
+              <h2 className="mb-1 text-sm font-bold text-ink">Поставщики</h2>
+              <p className="mb-3 text-xs text-muted">Кому звонить по этому заказу</p>
+              <ul className="space-y-3 text-sm">
+                {suppliers.map((sup, i) => (
+                  <li key={i} className="flex items-start justify-between gap-3">
+                    <span className="font-medium text-ink">
+                      {sup.name ?? "Без названия"}
+                    </span>
+                    {sup.phone ? (
+                      <a
+                        href={`tel:${sup.phone}`}
+                        className="shrink-0 rounded-lg bg-brand-soft px-2.5 py-1 text-xs font-semibold text-brand hover:bg-brand-tint"
+                      >
+                        📞 {sup.phone}
+                      </a>
+                    ) : (
+                      <span className="text-xs text-muted">нет телефона</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <form
             action={updateOrderStatus.bind(null, order.id)}

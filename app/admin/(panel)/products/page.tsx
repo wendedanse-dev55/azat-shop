@@ -44,6 +44,7 @@ export default async function AdminProductsPage() {
                 <th className="px-4 py-3 font-medium">Название</th>
                 <th className="px-4 py-3 font-medium">Категория</th>
                 <th className="px-4 py-3 font-medium">Артикул</th>
+                <th className="px-4 py-3 font-medium">Поставщик</th>
                 <th className="px-4 py-3 text-right font-medium">Цена</th>
                 <th className="px-4 py-3 text-right font-medium">Остаток</th>
                 <th className="px-4 py-3 text-right font-medium">Действия</th>
@@ -72,6 +73,25 @@ export default async function AdminProductsPage() {
                     {p.category?.name ?? "—"}
                   </td>
                   <td className="px-4 py-3 text-gray-500">{p.sku ?? "—"}</td>
+                  <td className="px-4 py-3">
+                    {p.supplier || p.supplierPhone ? (
+                      <div className="leading-tight">
+                        {p.supplier && (
+                          <div className="text-gray-700">{p.supplier}</div>
+                        )}
+                        {p.supplierPhone && (
+                          <a
+                            href={`tel:${p.supplierPhone}`}
+                            className="text-xs text-brand hover:underline"
+                          >
+                            {p.supplierPhone}
+                          </a>
+                        )}
+                      </div>
+                    ) : (
+                      <span className="text-gray-400">—</span>
+                    )}
+                  </td>
                   <td className="px-4 py-3 text-right">{formatPrice(p.price)}</td>
                   <td className="px-4 py-3 text-right">{p.stock}</td>
                   <td className="px-4 py-3">

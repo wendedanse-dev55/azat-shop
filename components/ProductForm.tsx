@@ -15,6 +15,8 @@ interface ProductValues {
   sku?: string | null;
   imageUrl?: string | null;
   images?: string[] | null;
+  supplier?: string | null;
+  supplierPhone?: string | null;
   rating?: number;
   reviewsCount?: number;
   categoryId?: string | null;
@@ -142,6 +144,40 @@ export default function ProductForm({
         <p className="mt-1 text-xs text-muted">
           Первая ссылка станет главным фото, остальные попадут в слайдер на странице товара.
         </p>
+      </div>
+
+      <div className="rounded-xl border border-line bg-brand-soft/40 p-4">
+        <div className="mb-1 flex items-center gap-2">
+          <span className="text-sm font-semibold text-ink">Поставщик</span>
+          <span className="rounded-full bg-white px-2 py-0.5 text-[11px] font-medium text-muted">
+            только для админа — покупатели не видят
+          </span>
+        </div>
+        <p className="mb-3 text-xs text-muted">
+          Чтобы при заказе было видно, чей это товар и кому звонить.
+        </p>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label className={labelClass} htmlFor="supplier">Название / имя</label>
+            <input
+              id="supplier"
+              name="supplier"
+              defaultValue={product?.supplier ?? ""}
+              className={inputClass}
+              placeholder="Например: ТОО Электроснаб"
+            />
+          </div>
+          <div>
+            <label className={labelClass} htmlFor="supplierPhone">Телефон</label>
+            <input
+              id="supplierPhone"
+              name="supplierPhone"
+              defaultValue={product?.supplierPhone ?? ""}
+              className={inputClass}
+              placeholder="+7 700 123 45 67"
+            />
+          </div>
+        </div>
       </div>
 
       <div className="flex items-center gap-3 pt-2">

@@ -63,6 +63,18 @@ const HEADER_MAP: Record<string, string> = {
   imageurl: "imageUrl",
   "image url": "imageUrl",
   gallery: "imageUrl",
+
+  поставщик: "supplier",
+  продавец: "supplier",
+  supplier: "supplier",
+  vendor: "supplier",
+
+  "телефон поставщика": "supplierPhone",
+  "тел поставщика": "supplierPhone",
+  "контакт поставщика": "supplierPhone",
+  "телефон продавца": "supplierPhone",
+  "supplier phone": "supplierPhone",
+  supplierphone: "supplierPhone",
 };
 
 function normalizeHeader(h: string): string {
@@ -148,6 +160,8 @@ export async function POST(req: NextRequest) {
       const stock = parseInt(data.stock || "0", 10) || 0;
       const description = data.description?.trim() || null;
       const sku = data.sku?.trim() || null;
+      const supplier = data.supplier?.trim() || null;
+      const supplierPhone = data.supplierPhone?.trim() || null;
       // One cell may hold several links separated by commas — split them into a
       // gallery and keep the first as the primary image.
       const images = parseImageList(data.imageUrl);
@@ -192,6 +206,8 @@ export async function POST(req: NextRequest) {
             description,
             imageUrl,
             images,
+            supplier,
+            supplierPhone,
             rating,
             reviewsCount,
             categoryId,
@@ -210,6 +226,8 @@ export async function POST(req: NextRequest) {
             sku,
             imageUrl,
             images,
+            supplier,
+            supplierPhone,
             rating,
             reviewsCount,
             categoryId,
