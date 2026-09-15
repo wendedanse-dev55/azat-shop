@@ -10,6 +10,8 @@ import { uniqueProductSlug, uniqueCategorySlug } from "./unique-slug";
 import { SESSION_COOKIE, expectedToken, isAuthenticated } from "./auth";
 import { uploadsDir, uploadUrl } from "./uploads";
 import { parseImageList } from "./images";
+import { formatPrice } from "./format";
+import { sendTelegramMessage, escapeHtml } from "./telegram";
 
 // ---------- helpers ----------
 
@@ -329,6 +331,29 @@ export async function createOrder(
       items: { create: orderItems },
     },
   });
+
+  // Notify the store owner in Telegram (no-op if not configured).
+  const itemLines = orderItems.map((it) => {
+    let line = `• ${escapeHtml(it.name)} — ${it.qty} шт × ${formatPrice(it.price)}`;
+    if (it.supplier || it.supplierPhone) {
+      line += `\n   Поставщик: ${escapeHtml(it.supplier ?? "—")}${
+        it.supplierPhone ? ` (${escapeHtml(it.supplierPhone)})` : ""
+      }`;
+    }
+    return line;
+  });
+  const message =
+    `🛒 <b>Новый заказ #${order.id.slice(-6).toUpperCase()}</b>\n\n` +
+    `👤 ${escapeHtml(name)}\n` +
+    `📞 ${escapeHtml(phone)}\n` +
+    (comment ? `💬 ${escapeHtml(comment)}\n` : "") +
+    `\n<b>Товары:</b>\n${itemLines.join("\n")}\n\n` +
+    `💰 <b>Итого: ${formatPrice(total)}</b>`;
+  try {
+    await sendTelegramMessage(message);
+  } catch {
+    // Notifications must never break order creation.
+  }
 
   revalidatePath("/admin/orders");
   revalidatePath("/admin");

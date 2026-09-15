@@ -54,6 +54,8 @@ npm run dev          # запустить http://localhost:3000
 | `BLOB_READ_WRITE_TOKEN`| токен Vercel Blob (в проде ставится сам; локально можно пусто)  |
 | `ADMIN_PASSWORD`       | пароль для входа в админку                                      |
 | `AUTH_SECRET`          | секрет для подписи cookie сессии (смените!)                     |
+| `TELEGRAM_BOT_TOKEN`   | токен бота от @BotFather (для уведомлений о заказах)            |
+| `TELEGRAM_CHAT_ID`     | chat id получателя(ей), через запятую (пусто = выкл.)           |
 
 Валюта задаётся одной константой `CURRENCY` в [`lib/format.ts`](lib/format.ts)
 (по умолчанию `₸`).
