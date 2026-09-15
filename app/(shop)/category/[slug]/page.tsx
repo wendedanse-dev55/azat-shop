@@ -4,6 +4,7 @@ import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import ProductCard from "@/components/ProductCard";
 import CategoryIcon from "@/components/CategoryIcon";
+import CategorySidebar from "@/components/CategorySidebar";
 import FiltersSidebar from "@/components/FiltersSidebar";
 import SortBar from "@/components/SortBar";
 import {
@@ -34,6 +35,17 @@ export default async function CategoryPage({
 
   const category = await prisma.category.findUnique({ where: { slug } });
   if (!category) notFound();
+
+  const allCategories = await prisma.category.findMany({
+    orderBy: { name: "asc" },
+    include: { _count: { select: { products: true } } },
+  });
+  const sidebarCategories = allCategories.map((c) => ({
+    id: c.id,
+    name: c.name,
+    slug: c.slug,
+    count: c._count.products,
+  }));
 
   const where: Prisma.ProductWhereInput = { categoryId: category.id };
   const priceFilter = buildPriceFilter(sp.min, sp.max);
@@ -70,7 +82,8 @@ export default async function CategoryPage({
       </div>
 
       <div className="flex flex-col gap-6 lg:flex-row">
-        <aside className="shrink-0 lg:w-64">
+        <aside className="shrink-0 space-y-4 lg:w-64">
+          <CategorySidebar categories={sidebarCategories} className="hidden lg:block" />
           <FiltersSidebar
             action={basePath}
             hidden={sp.sort ? { sort: sp.sort } : {}}

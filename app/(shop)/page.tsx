@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import ProductCard from "@/components/ProductCard";
 import HeroCarousel, { type HeroSlide } from "@/components/HeroCarousel";
 import CategoryIcon, { CATEGORY_COLORS } from "@/components/CategoryIcon";
+import CategorySidebar from "@/components/CategorySidebar";
 import ServicesSection from "@/components/ServicesSection";
 import { PRODUCT_CARD_SELECT } from "@/lib/product-query";
 import { pluralProducts } from "@/lib/format";
@@ -33,8 +34,15 @@ export default async function HomePage() {
     }),
   ]);
 
+  const sidebarCategories = categories.map((c) => ({
+    id: c.id,
+    name: c.name,
+    slug: c.slug,
+    count: c._count.products,
+  }));
+
   return (
-    <div className="space-y-10">
+    <div className="space-y-6">
       {/* Hero slideshow — admin banners if any, otherwise auto promo slides */}
       <HeroCarousel
         slides={
@@ -44,75 +52,64 @@ export default async function HomePage() {
         }
       />
 
-      {/* Categories */}
+      {/* Mobile category rail (sidebar is desktop-only) */}
       {categories.length > 0 && (
-        <section>
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xl font-bold text-ink">Категории</h2>
-            <Link href="/catalog" className="text-sm font-medium text-brand hover:underline">
-              Все категории →
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {categories.map((c, i) => {
-              const color = CATEGORY_COLORS[i % CATEGORY_COLORS.length];
-              return (
-                <Link
-                  key={c.id}
-                  href={`/category/${c.slug}`}
-                  className="group relative flex items-center gap-3 overflow-hidden rounded-2xl border border-line bg-white p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand hover:shadow-lg hover:shadow-black/5"
-                >
-                  <span
-                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${color.bg} ${color.fg} transition-transform duration-200 group-hover:scale-110`}
-                  >
-                    <CategoryIcon name={c.name} className="h-6 w-6" />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block truncate font-semibold text-ink group-hover:text-brand">
-                      {c.name}
-                    </span>
-                    <span className="block text-xs text-muted">
-                      {pluralProducts(c._count.products)}
-                    </span>
-                  </span>
-                  <span
-                    className={`pointer-events-none absolute -right-8 -top-8 h-20 w-20 rounded-full ${color.bg} opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-70`}
-                    aria-hidden="true"
-                  />
-                  <span className="ml-auto shrink-0 translate-x-1 text-muted opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:text-brand group-hover:opacity-100">
-                    →
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
-        </section>
-      )}
-
-      {/* Services */}
-      <ServicesSection />
-
-      {/* Discounts */}
-      {discounted.length > 0 && (
-        <ProductSection
-          title="Скидки дня"
-          href="/search?sort=popular"
-          products={discounted}
-        />
-      )}
-
-      {/* Popular */}
-      {popular.length > 0 ? (
-        <ProductSection title="Популярные товары" href="/search" products={popular} />
-      ) : (
-        <div className="rounded-2xl border border-dashed border-line bg-white p-10 text-center text-muted">
-          Товаров пока нет. Добавьте их в{" "}
-          <Link href="/admin" className="text-brand underline">
-            админ-панели
-          </Link>
-          .
+        <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 lg:hidden">
+          {categories.map((c, i) => {
+            const color = CATEGORY_COLORS[i % CATEGORY_COLORS.length];
+            return (
+              <Link
+                key={c.id}
+                href={`/category/${c.slug}`}
+                className="flex shrink-0 items-center gap-2 rounded-full border border-line bg-white py-1.5 pl-1.5 pr-3.5 text-sm font-medium text-ink transition-colors hover:border-brand"
+              >
+                <span className={`flex h-7 w-7 items-center justify-center rounded-full ${color.bg} ${color.fg}`}>
+                  <CategoryIcon name={c.name} className="h-4 w-4" />
+                </span>
+                {c.name}
+              </Link>
+            );
+          })}
         </div>
       )}
+
+      {/* Category sidebar + main content */}
+      <div className="lg:flex lg:gap-6">
+        {categories.length > 0 && (
+          <aside className="hidden shrink-0 lg:block lg:w-60">
+            <div className="sticky top-24">
+              <CategorySidebar categories={sidebarCategories} />
+            </div>
+          </aside>
+        )}
+
+        <div className="min-w-0 flex-1 space-y-10">
+          {/* Services */}
+          <ServicesSection />
+
+          {/* Discounts */}
+          {discounted.length > 0 && (
+            <ProductSection
+              title="Скидки дня"
+              href="/search?sort=popular"
+              products={discounted}
+            />
+          )}
+
+          {/* Popular */}
+          {popular.length > 0 ? (
+            <ProductSection title="Популярные товары" href="/search" products={popular} />
+          ) : (
+            <div className="rounded-2xl border border-dashed border-line bg-white p-10 text-center text-muted">
+              Товаров пока нет. Добавьте их в{" "}
+              <Link href="/admin" className="text-brand underline">
+                админ-панели
+              </Link>
+              .
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
@@ -232,7 +229,7 @@ function ProductSection({
           Все →
         </Link>
       </div>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4">
         {products.map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}
