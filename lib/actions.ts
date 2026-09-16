@@ -11,7 +11,7 @@ import { SESSION_COOKIE, expectedToken, isAuthenticated } from "./auth";
 import { uploadsDir, uploadUrl } from "./uploads";
 import { parseImageList } from "./images";
 import { formatPrice } from "./format";
-import { sendTelegramMessage, escapeHtml } from "./telegram";
+import { notifyTelegram, escapeHtml } from "./telegram";
 
 // ---------- helpers ----------
 
@@ -350,7 +350,7 @@ export async function createOrder(
     `\n<b>Товары:</b>\n${itemLines.join("\n")}\n\n` +
     `💰 <b>Итого: ${formatPrice(total)}</b>`;
   try {
-    await sendTelegramMessage(message);
+    await notifyTelegram(message);
   } catch {
     // Notifications must never break order creation.
   }
@@ -373,4 +373,12 @@ export async function deleteOrder(id: string) {
   await prisma.order.delete({ where: { id } });
   revalidatePath("/admin/orders");
   redirect("/admin/orders");
+}
+
+// ---------- telegram ----------
+
+export async function deleteTelegramSubscriber(id: string) {
+  await assertAuth();
+  await prisma.telegramSubscriber.delete({ where: { id } });
+  revalidatePath("/admin/telegram");
 }

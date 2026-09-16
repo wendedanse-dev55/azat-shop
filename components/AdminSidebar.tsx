@@ -11,6 +11,7 @@ const links = [
   { href: "/admin/categories", label: "Категории" },
   { href: "/admin/banners", label: "Баннеры" },
   { href: "/admin/import", label: "Импорт Excel" },
+  { href: "/admin/telegram", label: "Telegram" },
 ];
 
 export default function AdminSidebar() {
