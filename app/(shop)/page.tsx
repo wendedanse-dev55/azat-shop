@@ -5,6 +5,7 @@ import HeroCarousel, { type HeroSlide } from "@/components/HeroCarousel";
 import CategoryIcon, { CATEGORY_COLORS } from "@/components/CategoryIcon";
 import CategorySidebar from "@/components/CategorySidebar";
 import ServicesSection from "@/components/ServicesSection";
+import IntroOverlay from "@/components/IntroOverlay";
 import { PRODUCT_CARD_SELECT } from "@/lib/product-query";
 import { pluralProducts } from "@/lib/format";
 import { productImages } from "@/lib/images";
@@ -42,7 +43,9 @@ export default async function HomePage() {
   }));
 
   return (
-    <div className="space-y-6">
+    <>
+      <IntroOverlay products={popular} />
+      <div className="space-y-6">
       {/* Hero slideshow — admin banners if any, otherwise auto promo slides */}
       <HeroCarousel
         slides={
@@ -110,7 +113,8 @@ export default async function HomePage() {
           )}
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
 
