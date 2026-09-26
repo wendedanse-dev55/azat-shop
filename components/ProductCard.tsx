@@ -24,7 +24,10 @@ export default function ProductCard({ product }: { product: Product }) {
   const disc = discountPercent(product.price, product.oldPrice);
 
   return (
-    <div className="group flex flex-col rounded-2xl border border-line bg-white p-2.5 transition-shadow hover:shadow-lg hover:shadow-black/5">
+    <div
+      data-fly-root
+      className="group flex flex-col rounded-2xl border border-line bg-white p-2.5 transition-shadow hover:shadow-lg hover:shadow-black/5"
+    >
       <Link
         href={`/product/${product.slug}`}
         className="relative block aspect-square overflow-hidden rounded-xl bg-gray-50"

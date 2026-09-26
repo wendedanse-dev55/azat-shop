@@ -1,6 +1,7 @@
 "use client";
 
 import { useCart } from "./CartProvider";
+import { bumpCart, flyToCart } from "@/lib/flyToCart";
 
 interface Props {
   product: {
@@ -21,7 +22,10 @@ export default function AddToCartButton({ product, className = "" }: Props) {
     return (
       <button
         type="button"
-        onClick={() => add(product)}
+        onClick={(e) => {
+          add(product);
+          flyToCart(e.currentTarget);
+        }}
         className={`flex h-10 w-full items-center justify-center gap-2 rounded-xl bg-brand px-4 text-sm font-semibold text-white transition-colors hover:bg-brand-hover ${className}`}
       >
         В корзину
@@ -46,7 +50,10 @@ export default function AddToCartButton({ product, className = "" }: Props) {
       </span>
       <button
         type="button"
-        onClick={() => setQty(product.id, inCart.qty + 1)}
+        onClick={() => {
+          setQty(product.id, inCart.qty + 1);
+          bumpCart();
+        }}
         className="flex h-8 w-10 items-center justify-center rounded-lg text-xl leading-none transition-colors hover:bg-white/20"
         aria-label="Увеличить количество"
       >

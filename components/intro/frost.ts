@@ -22,6 +22,7 @@ export function createFrost(
   density: number,
   pr: number,
   tex: { snow: Texture; glow: Texture },
+  reachScale = 1,
 ) {
   const group = new Group();
   const state = { fall: 0, flow: 0, burst: 0 };
@@ -194,6 +195,7 @@ export function createFrost(
       uGrow: { value: 0 },
       uOpacity: { value: 0 },
       uRes: { value: new Vector2(1, 1) },
+      uReachScale: { value: reachScale },
     },
     vertexShader: /* glsl */ `
       varying vec2 vUv;
@@ -207,6 +209,7 @@ export function createFrost(
       uniform float uGrow;
       uniform float uOpacity;
       uniform vec2 uRes;
+      uniform float uReachScale;
       varying vec2 vUv;
 
       float hash(vec2 p) {
@@ -260,7 +263,7 @@ export function createFrost(
         // so the frost band stays at the borders on portrait phones too.
         vec2 px = uv * uRes;
         float edge = min(min(px.x, uRes.x - px.x), min(px.y, uRes.y - px.y)) / min(uRes.x, uRes.y);
-        float reach = uGrow * mix(0.14, 0.21, clamp(aspect, 0.0, 1.0));
+        float reach = uGrow * uReachScale * mix(0.14, 0.21, clamp(aspect, 0.0, 1.0));
         if (edge > reach + 0.1) discard;
 
         vec2 p = (uv - 0.5) * vec2(aspect, 1.0);

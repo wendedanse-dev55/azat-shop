@@ -6,6 +6,7 @@ import ProductBuyBox from "@/components/ProductBuyBox";
 import ProductGallery from "@/components/ProductGallery";
 import { formatCount } from "@/lib/format";
 import { productImages } from "@/lib/images";
+import { themeFor } from "@/components/intro/theme";
 
 export const dynamic = "force-dynamic";
 
@@ -40,7 +41,11 @@ export default async function ProductPage({
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_320px]">
         {/* Gallery */}
-        <ProductGallery images={productImages(product)} name={product.name} />
+        <ProductGallery
+          images={productImages(product)}
+          name={product.name}
+          theme={themeFor(product)}
+        />
 
         {/* Info */}
         <div className="space-y-4">

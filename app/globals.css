@@ -73,3 +73,9 @@ html[data-intro="1"] body::before {
 @keyframes introCoverFailsafe {
   to { opacity: 0; visibility: hidden; }
 }
+
+/* Product stage: foreground snowflakes (CSS-only, keeps GSAP out of the page bundle) */
+@keyframes stageFlake {
+  from { transform: translate3d(0, -40px, 0) rotate(0deg); }
+  to { transform: translate3d(var(--dx, 0px), var(--fall, 560px), 0) rotate(var(--rot, 180deg)); }
+}

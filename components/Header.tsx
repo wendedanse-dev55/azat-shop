@@ -66,7 +66,7 @@ export default function Header({ categories }: { categories: Cat[] }) {
             href="/cart"
             className="relative ml-auto flex h-11 items-center gap-2 rounded-xl px-3 text-sm font-medium text-ink transition-colors hover:bg-brand-soft md:ml-0"
           >
-            <span className="relative">
+            <span className="relative" data-cart-target="header">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="9" cy="20" r="1.4" />
                 <circle cx="18" cy="20" r="1.4" />

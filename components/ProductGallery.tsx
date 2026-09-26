@@ -1,13 +1,17 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import ProductStage from "./intro/ProductStage";
+import type { IntroTheme } from "./intro/theme";
 
 export default function ProductGallery({
   images,
   name,
+  theme = "stars",
 }: {
   images: string[];
   name: string;
+  theme?: IntroTheme;
 }) {
   const [index, setIndex] = useState(0);
   const count = images.length;
@@ -40,9 +44,10 @@ export default function ProductGallery({
 
   return (
     <div className="overflow-hidden rounded-2xl border border-line bg-white p-3">
-      {/* Main image */}
+      {/* Main image on a themed stage */}
+      <ProductStage theme={theme} className="aspect-square rounded-xl">
       <div
-        className="group relative aspect-square overflow-hidden rounded-xl bg-gray-50"
+        className="group relative flex h-full w-full items-center justify-center p-[11%]"
         onTouchStart={(e) => {
           touchStartX.current = e.touches[0].clientX;
         }}
@@ -53,12 +58,15 @@ export default function ProductGallery({
           touchStartX.current = null;
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={images[index]}
-          alt={`${name} — фото ${index + 1}`}
-          className="h-full w-full object-cover"
-        />
+        <div className="relative h-full w-full overflow-hidden rounded-2xl bg-white shadow-[0_24px_60px_-12px_rgba(0,0,0,0.75)] ring-1 ring-white/25">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            data-fly-img
+            src={images[index]}
+            alt={`${name} — фото ${index + 1}`}
+            className="h-full w-full object-cover"
+          />
+        </div>
 
         {count > 1 && (
           <>
@@ -88,6 +96,7 @@ export default function ProductGallery({
           </>
         )}
       </div>
+      </ProductStage>
 
       {/* Thumbnails */}
       {count > 1 && (

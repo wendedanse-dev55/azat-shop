@@ -10,12 +10,24 @@ export interface IntroScene {
   setTheme(theme: IntroTheme, immediate?: boolean): void;
   pulse(): void;
   setPointer(x: number, y: number): void;
+  pause(): void;
+  resume(): void;
   dispose(): void;
 }
 
-// WebGL background for the intro. Returns null if WebGL is unavailable, in
-// which case the CSS gradients alone are shown.
-export function createIntroScene(canvas: HTMLCanvasElement): IntroScene | null {
+export interface SceneOptions {
+  /** Particle density multiplier (defaults to 1, or 0.55 on phones). */
+  density?: number;
+  /** Scales how far the frost creeps in from the edges. */
+  frostReach?: number;
+}
+
+// WebGL background (full-screen intro or a bounded product stage). Returns null
+// if WebGL is unavailable, in which case the CSS gradients alone are shown.
+export function createIntroScene(
+  canvas: HTMLCanvasElement,
+  opts: SceneOptions = {},
+): IntroScene | null {
   let renderer: WebGLRenderer;
   try {
     renderer = new WebGLRenderer({
@@ -30,7 +42,7 @@ export function createIntroScene(canvas: HTMLCanvasElement): IntroScene | null {
 
   const small = window.innerWidth < 768;
   const pr = Math.min(window.devicePixelRatio || 1, small ? 1.5 : 2);
-  const density = small ? 0.55 : 1;
+  const density = opts.density ?? (small ? 0.55 : 1);
   renderer.setPixelRatio(pr);
   renderer.setClearColor(0x000000, 0);
   renderer.autoClear = false;
@@ -44,7 +56,7 @@ export function createIntroScene(canvas: HTMLCanvasElement): IntroScene | null {
   const glow = makeGlowTexture();
   const snowTex = makeSnowflakeTexture();
   const stars = createStars(density, pr, glow);
-  const frost = createFrost(density, pr, { snow: snowTex, glow });
+  const frost = createFrost(density, pr, { snow: snowTex, glow }, opts.frostReach ?? 1);
   const network = createNetwork(density, pr, glow);
   scene.add(stars.group, frost.group, network.group);
   overlayScene.add(frost.overlay);
@@ -62,14 +74,16 @@ export function createIntroScene(canvas: HTMLCanvasElement): IntroScene | null {
     frost.resize(w * pr, h * pr);
   };
   resize();
-  window.addEventListener("resize", resize);
+  const ro = new ResizeObserver(resize);
+  ro.observe(canvas);
 
   let raf = 0;
   let running = true;
+  let paused = false;
   let last = performance.now();
   const start = last;
   const frame = () => {
-    if (!running) return;
+    if (!running || paused) return;
     const now = performance.now();
     const dt = Math.min((now - last) / 1000, 0.05);
     last = now;
@@ -125,10 +139,20 @@ export function createIntroScene(canvas: HTMLCanvasElement): IntroScene | null {
       pointer.x = x;
       pointer.y = y;
     },
+    pause() {
+      paused = true;
+      cancelAnimationFrame(raf);
+    },
+    resume() {
+      if (!paused || !running) return;
+      paused = false;
+      last = performance.now();
+      raf = requestAnimationFrame(frame);
+    },
     dispose() {
       running = false;
       cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
+      ro.disconnect();
       gsap.killTweensOf(weights);
       gsap.killTweensOf(camera.position);
       stars.dispose();

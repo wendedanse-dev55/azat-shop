@@ -56,7 +56,10 @@ export default function BottomNav() {
               it.active ? "text-brand" : "text-muted"
             }`}
           >
-            <span className="relative">
+            <span
+              className="relative"
+              data-cart-target={it.href === "/cart" ? "bottom" : undefined}
+            >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 {it.icon}
               </svg>
