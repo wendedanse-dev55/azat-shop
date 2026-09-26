@@ -60,55 +60,16 @@ input[type="number"] {
   display: none;
 }
 
-/* Intro splash animations */
-@keyframes introFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
+/* Intro: dark cover set before first paint (see app/layout.tsx) so the store
+   does not flash before the cinematic intro. Auto-hides as a failsafe. */
+html[data-intro="1"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: #030b16;
+  animation: introCoverFailsafe 0.6s ease 9s forwards;
 }
-@keyframes introPop {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
-@keyframes introUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes introGlow {
-  0%, 100% { opacity: 0.45; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.08); }
-}
-@keyframes introSpin {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
-}
-@keyframes introPopIn {
-  0% { opacity: 0; transform: scale(0.6) translateY(30px); }
-  60% { opacity: 1; }
-  100% { opacity: 1; transform: scale(1) translateY(0); }
-}
-@keyframes introRing {
-  from { opacity: 0.55; transform: translate(-50%, -50%) scale(0.4); }
-  to { opacity: 0; transform: translate(-50%, -50%) scale(1.9); }
-}
-@keyframes introShine {
-  0% { transform: translateX(-140%) skewX(-18deg); opacity: 0; }
-  25% { opacity: 0.75; }
-  100% { transform: translateX(160%) skewX(-18deg); opacity: 0; }
-}
-@keyframes introNameIn {
-  from { opacity: 0; filter: blur(18px); transform: translateY(16px) scale(1.05); }
-  to { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
-}
-@keyframes introProgress {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
-}
-@keyframes introFlare {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
-  35% { opacity: 0.9; }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(2.2); }
-}
-@keyframes introBrandIn {
-  from { opacity: 0; transform: scale(0.82) translateY(10px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+@keyframes introCoverFailsafe {
+  to { opacity: 0; visibility: hidden; }
 }
