@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Как покупать в Salqyn Store: пошаговая инструкция со скриншотами простыми словами.">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<title>Путеводитель по Salqyn Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Rubik:wght@500;700;800&display=swap">
+<style>
+/* Layout: one reading column; every step = sticker + heading + framed screenshot with yellow pins + matching legend. */
+:root {
+  --bg: #edf4f9;
+  --surface: #ffffff;
+  --ink: #0b1b2b;
+  --body: #2f3f52;
+  --muted: #5b6b7e;
+  --line: #d6e2ec;
+  --brand: #0284c7;
+  --brand-ink: #075985;
+  --brand-soft: #dff0fc;
+  --pin-bg: #ffc21a;
+  --pin-fg: #0b1b2b;
+  --pin-ring: #ffffff;
+  --warn-bg: #fff2e5;
+  --warn-ink: #9a3412;
+  --warn-line: #f8b97a;
+  --frame: #dde7ef;
+  --frame-dot: #b3c3d1;
+  --shadow: 0 1px 2px rgb(11 27 43 / .06), 0 8px 24px rgb(11 27 43 / .08);
+  --font-display: "Rubik", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Nunito", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #06121d; --surface: #0c1d2c; --ink: #e8f2fa; --body: #c4d4e1; --muted: #8ea3b6;
+    --line: #1b3246; --brand: #38bdf8; --brand-ink: #8fd8fb; --brand-soft: #0b2a40;
+    --warn-bg: #2a1708; --warn-ink: #fdc08a; --warn-line: #7c3a12;
+    --frame: #15293a; --frame-dot: #34506a;
+    --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 8px 24px rgb(0 0 0 / .35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #06121d; --surface: #0c1d2c; --ink: #e8f2fa; --body: #c4d4e1; --muted: #8ea3b6;
+  --line: #1b3246; --brand: #38bdf8; --brand-ink: #8fd8fb; --brand-soft: #0b2a40;
+  --warn-bg: #2a1708; --warn-ink: #fdc08a; --warn-line: #7c3a12;
+  --frame: #15293a; --frame-dot: #34506a;
+  --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 8px 24px rgb(0 0 0 / .35);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+body {
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.6;
+}
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 72px;
+}
+h1, h2, h3 { font-family: var(--font-display); color: var(--ink); text-wrap: balance; margin: 0; }
+p { margin: 0; max-width: 66ch; }
+a { color: var(--brand); text-underline-offset: 3px; }
+a:focus-visible, [role="button"]:focus-visible, button:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--brand); outline-offset: 3px; border-radius: 8px;
+}
+b, strong { color: var(--ink); font-weight: 800; }
+.btnname {
+  display: inline-block; padding: 0 .45em; border-radius: 6px;
+  background: var(--brand-soft); color: var(--brand-ink); font-weight: 800; white-space: nowrap;
+}
+
+/* Hero */
+.hero { display: flex; flex-direction: column; gap: 22px; }
+.brandline { align-self: flex-start; text-decoration: none; display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; color: var(--brand-ink); letter-spacing: .02em; }
+.brandline svg { width: 34px; height: 34px; flex: none; }
+.hero h1 { font-size: clamp(2.1rem, 6vw, 3.6rem); line-height: 1.05; font-weight: 800; letter-spacing: -.01em; }
+.hero h1 span { color: var(--brand); }
+.lead { font-size: 1.15rem; color: var(--body); }
+.pin.pin-demo { display: inline-grid; vertical-align: -6px; margin: 0 2px; position: static; transform: none; width: 26px; height: 26px; font-size: 13px; }
+
+/* Route (table of contents) */
+.route { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.route a {
+  display: flex; align-items: center; gap: 10px; height: 100%;
+  padding: 10px 12px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line);
+  color: var(--ink); text-decoration: none; font-weight: 700; font-size: .95rem; line-height: 1.25;
+  transition: border-color .15s, transform .15s;
+}
+.route a:hover { border-color: var(--brand); transform: translateY(-1px); }
+.route .n {
+  flex: none; min-width: 30px; height: 30px; padding: 0 5px; border-radius: 999px; display: grid; place-items: center;
+  background: var(--brand); color: var(--surface); font-family: var(--font-display); font-weight: 800; font-size: .9rem;
+}
+
+/* Callouts */
+.note { display: flex; gap: 14px; padding: 16px 18px; border-radius: 16px; max-width: 760px; }
+.note svg { flex: none; width: 26px; height: 26px; margin-top: 2px; }
+.note p { max-width: none; }
+.note.warn { background: var(--warn-bg); border: 2px solid var(--warn-line); color: var(--warn-ink); }
+.note.warn b { color: var(--warn-ink); }
+.note.tip { background: var(--brand-soft); color: var(--brand-ink); }
+.note.tip b { color: var(--brand-ink); }
+
+/* Steps */
+.step { display: flex; flex-direction: column; gap: 20px; scroll-margin-top: 16px; }
+.step-head { display: flex; flex-direction: column; gap: 8px; }
+.sticker {
+  align-self: flex-start; font-family: var(--font-display); font-weight: 700; font-size: .8rem;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--brand-ink);
+  background: var(--brand-soft); padding: 4px 12px; border-radius: 999px;
+}
+.step h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); line-height: 1.15; font-weight: 800; }
+.step h3 { font-size: 1.25rem; font-weight: 700; margin-top: 8px; }
+.text { display: flex; flex-direction: column; gap: 12px; }
+
+/* Screenshot frame */
+figure { margin: 0; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.frame {
+  background: var(--frame); border-radius: 14px; padding: 0 6px 6px; box-shadow: var(--shadow);
+  max-width: 100%;
+}
+.bar { display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 6px; }
+.bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--frame-dot); flex: none; }
+.bar span {
+  margin-left: 8px; flex: 1; min-width: 0; height: 20px; border-radius: 6px; background: var(--surface);
+  color: var(--muted); font-size: .72rem; line-height: 20px; padding: 0 10px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.shot { position: relative; border-radius: 8px; cursor: zoom-in; line-height: 0; }
+.shot img { display: block; width: 100%; height: auto; border-radius: 8px; }
+.pin {
+  position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%);
+  width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--pin-bg); color: var(--pin-fg); font: 800 15px/1 var(--font-display);
+  box-shadow: 0 0 0 3px var(--pin-ring), 0 3px 10px rgb(0 0 0 / .35);
+  pointer-events: none;
+}
+figcaption { font-size: .85rem; color: var(--muted); }
+
+/* Legend */
+.legend { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; max-width: 760px; }
+.legend li { display: flex; gap: 12px; align-items: flex-start; }
+.legend .pin { position: static; transform: none; flex: none; width: 28px; height: 28px; font-size: 14px; margin-top: 1px; }
+
+/* Side-by-side for small screenshots */
+.split { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; }
+.split > * { min-width: 0; }
+.split .frame { justify-self: start; }
+.w-card { width: 300px; }
+.w-filter { width: 330px; }
+.w-qty { width: 330px; }
+.w-small { width: 440px; }
+.w-mobile { width: 300px; }
+
+/* Help card */
+.contacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; max-width: 760px; }
+.contact { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; }
+.contact small { color: var(--muted); font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
+.contact strong { font-family: var(--font-display); font-size: 1.15rem; user-select: all; font-variant-numeric: tabular-nums; }
+
+/* FAQ + quiz */
+.qa { display: flex; flex-direction: column; gap: 10px; max-width: 760px; }
+details { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 0 18px; }
+summary { cursor: pointer; list-style: none; padding: 14px 0; font-weight: 800; color: var(--ink); display: flex; gap: 12px; align-items: center; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; margin-left: auto; font-family: var(--font-display); font-size: 1.4rem; color: var(--brand); line-height: 1; }
+details[open] summary::after { content: "−"; }
+details > div { padding: 0 0 16px; display: flex; flex-direction: column; gap: 12px; }
+.quiz summary .q { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--brand-soft); color: var(--brand-ink); font-family: var(--font-display); }
+.quiz details > div { color: var(--brand-ink); font-weight: 700; }
+
+/* Glossary */
+.dict { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin: 0; }
+.dict div { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; }
+.dict dt { font-family: var(--font-display); font-weight: 700; color: var(--ink); }
+.dict dd { margin: 2px 0 0; font-size: .95rem; }
+
+.end { text-align: left; color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line); padding-top: 20px; }
+
+/* Lightbox */
+.lb {
+  position: fixed; inset: 0; z-index: 50; background: rgb(3 11 22 / .82);
+  padding: calc(56px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  overflow: auto;
+}
+.lb-inner { margin: 0 auto; }
+.lb .shot { cursor: zoom-out; }
+.lb-close {
+  position: fixed; top: calc(10px + env(safe-area-inset-top, 0px)); right: max(12px, env(safe-area-inset-right, 0px));
+  height: 40px; padding: 0 16px; border-radius: 999px; border: 0; cursor: pointer;
+  background: var(--surface); color: var(--ink); font: 700 15px var(--font-body);
+}
+.lb-hint { position: fixed; top: calc(18px + env(safe-area-inset-top, 0px)); left: max(16px, env(safe-area-inset-left, 0px)); color: #dbe7f1; font-size: .85rem; }
+
+@media (max-width: 720px) {
+  body { font-size: 17px; }
+  .wrap { gap: 56px; padding-block: 24px 56px; }
+  .split { grid-template-columns: 1fr; gap: 18px; }
+  .w-card, .w-filter, .w-qty, .w-small, .w-mobile { width: auto; max-width: 100%; }
+  .w-card .shot, .w-qty .shot, .w-mobile .shot { max-width: 300px; }
+  .pin { width: 22px; height: 22px; font-size: 12px; box-shadow: 0 0 0 2px var(--pin-ring), 0 2px 6px rgb(0 0 0 / .35); }
+  .legend .pin { width: 26px; height: 26px; font-size: 13px; }
+  .bar span { font-size: .68rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .route a { transition: none; }
+  .route a:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<main class="wrap">
+
+  <header class="hero">
+    <a class="brandline" href="/" aria-label="Salqyn Store — в магазин">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path fill="var(--brand)" d="M20 2l15.6 9v18L20 38 4.4 29V11z"/><g stroke="var(--surface)" stroke-width="2.4" stroke-linecap="round" fill="none"><path d="M20 10v20M11.3 15l17.4 10M11.3 25l17.4-10"/><path d="M17 11.5l3 2.5 3-2.5M17 28.5l3-2.5 3 2.5"/></g></svg>
+      Salqyn Store
+    </a>
+    <h1>Путеводитель по <span>Salqyn Store</span></h1>
+    <p class="lead">Привет! Здесь показано, как пользоваться сайтом магазина Salqyn Store. В этом магазине продают кондиционеры и Wi‑Fi роутеры, а мастера могут их установить. Мы пройдём весь путь покупателя: от первого экрана до готового заказа. Все картинки сняты с настоящего сайта.</p>
+    <p>Жёлтые кружки с цифрами <span class="pin pin-demo">1</span> показывают, куда смотреть на картинке. Под картинкой написано, что значит каждая цифра. Если картинка мелкая, нажми на неё, и она увеличится.</p>
+
+    <div class="note warn" role="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 7v6M12 16.5v.5"/></svg>
+      <p><b>Главное правило.</b> Смотреть товары и складывать их в корзину можно самому. А заказ оформляй только вместе с мамой, папой или другим взрослым. Заказ — это настоящая покупка за настоящие деньги.</p>
+    </div>
+
+    <nav aria-label="Шаги">
+      <ol class="route">
+        <li><a href="#open"><span class="n">1</span>Открываем сайт</a></li>
+        <li><a href="#home"><span class="n">2</span>Главная страница</a></li>
+        <li><a href="#card"><span class="n">3</span>Карточка товара</a></li>
+        <li><a href="#catalog"><span class="n">4</span>Каталог</a></li>
+        <li><a href="#filters"><span class="n">5</span>Сортировка и фильтры</a></li>
+        <li><a href="#search"><span class="n">6</span>Поиск</a></li>
+        <li><a href="#product"><span class="n">7</span>Страница товара</a></li>
+        <li><a href="#add"><span class="n">8</span>Кладём в корзину</a></li>
+        <li><a href="#cart"><span class="n">9</span>Корзина</a></li>
+        <li><a href="#checkout"><span class="n">10</span>Оформляем заказ</a></li>
+        <li><a href="#done"><span class="n">11</span>Заказ готов</a></li>
+      </ol>
+    </nav>
+  </header>
+
+  <!-- 1 -->
+  <section class="step" id="open">
+    <div class="step-head"><span class="sticker">Шаг 1</span><h2>Открываем сайт</h2></div>
+    <div class="text">
+      <p>Открой браузер. Это программа для интернета, например Chrome, Safari или Яндекс Браузер. В строке адреса набери <b>azat-shop.vercel.app</b> и нажми Enter.</p>
+      <p>Сначала появится заставка. Вспыхнет снежинка, а потом по очереди покажутся товары магазина. Это как трейлер перед мультфильмом.</p>
+    </div>
+    <figure>
+      <div class="frame">
+        <div class="bar"><i></i><i></i><i></i><span>azat-shop.vercel.app</span></div>
+        <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: заставка">
+          <img src="/guide/img/intro.jpg" width="1280" height="800" alt="Заставка сайта: товар крупно, под ним кнопки «Смотреть товар» и «Войти в магазин»">
+          <span class="pin" style="--x:92.2%;--y:7%">1</span>
+          <span class="pin" style="--x:36.2%;--y:78.4%">2</span>
+          <span class="pin" style="--x:63.9%;--y:78.4%">3</span>
+          <span class="pin" style="--x:36.3%;--y:90.5%">4</span>
+          <span class="pin" style="--x:30.9%;--y:2.8%">5</span>
+        </div>
+      </div>
+    </figure>
+    <ol class="legend">
+      <li><span class="pin">1</span><span><b>Крестик</b> закрывает заставку сразу.</span></li>
+      <li><span class="pin">2</span><span><span class="btnname">Смотреть товар</span> открывает товар, который сейчас на экране.</span></li>
+      <li><span class="pin">3</span><span><span class="btnname">Войти в магазин →</span> ведёт на главную страницу.</span></li>
+      <li><span class="pin">4</span><span><b>Маленькие картинки.</b> Нажми на любую, чтобы показать другой товар.</span></li>
+      <li><span class="pin">5</span><span><b>Полоски сверху</b> показывают, какой по счёту товар сейчас.</span></li>
+    </ol>
+    <div class="note tip" role="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg>
+      <p><b>Подсказка.</b> На компьютере заставку можно закрыть клавишей <b>Esc</b>, а листать товары стрелками <b>←</b> и <b>→</b>. Заставка показывается один раз, когда ты только зашёл на сайт.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="step" id="home">
+    <div class="step-head"><span class="sticker">Шаг 2</span><h2>Главная страница</h2></div>
+    <div class="text">
+      <p>Это главная страница магазина. Наверху есть белая полоска с самыми важными кнопками. Она всегда остаётся на месте, даже когда ты листаешь страницу вниз.</p>
+    </div>
+    <figure>
+      <div class="frame">
+        <div class="bar"><i></i><i></i><i></i><span>azat-shop.vercel.app</span></div>
+        <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: главная страница">
+          <img src="/guide/img/home.jpg" width="1280" height="800" alt="Главная страница: шапка с логотипом, кнопкой «Каталог», поиском и корзиной; большой баннер; список категорий">
+          <span class="pin" style="--x:7.8%;--y:8.8%">1</span>
+          <span class="pin" style="--x:19.8%;--y:8.8%">2</span>
+          <span class="pin" style="--x:39%;--y:8.8%">3</span>
+          <span class="pin" style="--x:85.3%;--y:8.8%">4</span>
+          <span class="pin" style="--x:93.1%;--y:8.8%">5</span>
+          <span class="pin" style="--x:95.1%;--y:35.3%">6</span>
+          <span class="pin" style="--x:1.9%;--y:63.1%">7</span>
+        </div>
+      </div>
+    </figure>
+    <ol class="legend">
+      <li><span class="pin">1</span><span><b>Логотип со снежинкой.</b> Нажми на него, и ты вернёшься на главную страницу, где бы ни был.</span></li>
+      <li><span class="pin">2</span><span><span class="btnname">Каталог</span> показывает все разделы магазина.</span></li>
+      <li><span class="pin">3</span><span><b>Поиск.</b> Сюда пишут название того, что ищешь.</span></li>
+      <li><span class="pin">4</span><span><b>Админка</b> — пульт управления магазином для продавца. Покупателям туда не нужно: без пароля не пустят.</span></li>
+      <li><span class="pin">5</span><span><span class="btnname">Корзина</span>. Тут лежат товары, которые ты выбрал.</span></li>
+      <li><span class="pin">6</span><span><b>Стрелка</b> листает большую картинку (её называют баннер). Баннеры меняются и сами.</span></li>
+      <li><span class="pin">7</span><span><b>Категории</b> — это разделы магазина. Цифра рядом показывает, сколько в разделе товаров.</span></li>
+    </ol>
+  </section>
+
+  <!-- 3 -->
+  <section class="step" id="card">
+    <div class="step-head"><span class="sticker">Шаг 3</span><h2>Учимся читать карточку товара</h2></div>
+    <div class="text">
+      <p>Прокрути главную страницу вниз, и увидишь товары. Каждый товар лежит в своей карточке. Вот что на ней написано.</p>
+    </div>
+    <div class="split">
+      <figure class="w-card">
+        <div class="frame">
+          <div class="bar"><i></i><i></i><i></i><span>Скидки дня</span></div>
+          <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: карточка товара">
+            <img src="/guide/img/card.jpg" width="232" height="408" alt="Карточка товара: скидка −20%, цена 27 990 сом, старая цена 34 990 сом, оценка 4.7, кнопка «В корзину»">
+            <span class="pin" style="--x:36.2%;--y:6.6%">1</span>
+            <span class="pin" style="--x:64.2%;--y:51.7%">2</span>
+            <span class="pin" style="--x:77.2%;--y:59.6%">3</span>
+            <span class="pin" style="--x:49.1%;--y:65%">4</span>
+            <span class="pin" style="--x:59.9%;--y:71.1%">5</span>
+            <span class="pin" style="--x:34.1%;--y:82.4%">6</span>
+            <span class="pin" style="--x:85.8%;--y:92.6%">7</span>
+          </div>
+        </div>
+      </figure>
+      <ol class="legend">
+        <li><span class="pin">1</span><span><b>Красный ярлык «−20%»</b> значит скидку. Товар стоит на 20% дешевле, чем раньше.</span></li>
+        <li><span class="pin">2</span><span><b>Точки внизу фото.</b> У товара несколько фотографий.</span></li>
+        <li><span class="pin">3</span><span><b>Цена сейчас</b>: 27 990 сом.</span></li>
+        <li><span class="pin">4</span><span><b>Зачёркнутая цена.</b> Столько товар стоил раньше, до скидки.</span></li>
+        <li><span class="pin">5</span><span><b>Звёздочки.</b> 4.7 — оценка покупателей, самая высокая оценка 5. А 342 — столько людей написали отзыв.</span></li>
+        <li><span class="pin">6</span><span><b>Название товара.</b> Нажми на него или на фото, и откроется страница товара.</span></li>
+        <li><span class="pin">7</span><span><span class="btnname">В корзину</span> кладёт товар в корзину.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="step" id="catalog">
+    <div class="step-head"><span class="sticker">Шаг 4</span><h2>Ищем товар через Каталог</h2></div>
+    <div class="text">
+      <p>Каталог похож на оглавление в книге. Он помогает быстро попасть в нужный раздел.</p>
+    </div>
+    <figure>
+      <div class="frame">
+        <div class="bar"><i></i><i></i><i></i><span>azat-shop.vercel.app</span></div>
+        <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: меню каталога">
+          <img src="/guide/img/catalog-menu.jpg" width="1280" height="330" alt="Открытое меню каталога со списком «Все категории»: Кондиционеры, Роутеры">
+          <span class="pin" style="--x:15.6%;--y:5.5%">1</span>
+          <span class="pin" style="--x:1.9%;--y:36%">2</span>
+        </div>
+      </div>
+    </figure>
+    <ol class="legend">
+      <li><span class="pin">1</span><span>Нажми <span class="btnname">Каталог</span>, и откроется список разделов. Кнопка станет крестиком. Нажми на неё ещё раз, чтобы закрыть список.</span></li>
+      <li><span class="pin">2</span><span>Выбери раздел, например <b>«Кондиционеры»</b>.</span></li>
+    </ol>
+    <div class="text">
+      <p>У каталога есть и своя страница. На телефоне она открывается кнопкой «Каталог» внизу экрана.</p>
+    </div>
+    <figure>
+      <div class="frame">
+        <div class="bar"><i></i><i></i><i></i><span>azat-shop.vercel.app/catalog</span></div>
+        <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: страница каталога">
+          <img src="/guide/img/catalog.jpg" width="1280" height="320" alt="Страница «Каталог»: плитки «Кондиционеры, 5 товаров» и «Роутеры, 5 товаров»">
+          <span class="pin" style="--x:12.5%;--y:30.9%">1</span>
+          <span class="pin" style="--x:31.3%;--y:65.6%">2</span>
+          <span class="pin" style="--x:15%;--y:78.8%">3</span>
+        </div>
+      </div>
+    </figure>
+    <ol class="legend">
+      <li><span class="pin">1</span><span><b>«Хлебные крошки»</b> — дорожка, по которой ты сюда пришёл. Нажми «Главная», чтобы вернуться назад.</span></li>
+      <li><span class="pin">2</span><span><b>Раздел.</b> Нажми на плитку, чтобы его открыть.</span></li>
+      <li><span class="pin">3</span><span>Сколько товаров в разделе.</span></li>
+    </ol>
+  </section>
+
+  <!-- 5 -->
+  <section class="step" id="filters">
+    <div class="step-head"><span class="sticker">Шаг 5</span><h2>Сортировка и фильтры</h2></div>
+    <div class="text">
+      <p>Ты в разделе «Кондиционеры». Тут собраны все кондиционеры магазина. Их можно расставить по порядку и убрать лишние.</p>
+    </div>
+    <figure>
+      <div class="frame">
+        <div class="bar"><i></i><i></i><i></i><span>azat-shop.vercel.app/category/kondicionery</span></div>
+        <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: раздел Кондиционеры">
+          <img src="/guide/img/category.jpg" width="1280" height="800" alt="Раздел «Кондиционеры»: кнопки сортировки, карточки товаров, слева категории и фильтры">
+          <span class="pin" style="--x:21.4%;--y:12.4%">1</span>
+          <span class="pin" style="--x:23.1%;--y:23.8%">2</span>
+          <span class="pin" style="--x:90.6%;--y:26.1%">3</span>
+          <span class="pin" style="--x:1.6%;--y:24.5%">4</span>
+          <span class="pin" style="--x:1.6%;--y:71.5%">5</span>
+        </div>
+      </div>
+    </figure>
+    <ol class="legend">
+      <li><span class="pin">1</span><span><b>Хлебные крошки</b>: Главная / Каталог / Кондиционеры.</span></li>
+      <li><span class="pin">2</span><span><b>Сортировка</b> выбирает, в каком порядке показать товары: «Популярные», «Сначала дешёвые», «Сначала дорогие», «По рейтингу», «Новинки». Выбранный вариант подсвечен голубым.</span></li>
+      <li><span class="pin">3</span><span>Сколько товаров сейчас показано.</span></li>
+      <li><span class="pin">4</span><span><b>Другие разделы.</b> Можно перейти в них прямо отсюда.</span></li>
+      <li><span class="pin">5</span><span><b>Фильтры</b> помогают убрать то, что не подходит. Как ими пользоваться, смотри ниже.</span></li>
+    </ol>
+
+    <h3>Как работают фильтры</h3>
+    <div class="split">
+      <figure class="w-filter">
+        <div class="frame">
+          <div class="bar"><i></i><i></i><i></i><span>Фильтры</span></div>
+          <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: фильтры">
+            <img src="/guide/img/filter.jpg" width="300" height="240" alt="Фильтры: цена до 100000, галочка «Только в наличии», кнопка «Применить»">
+            <span class="pin" style="--x:89%;--y:30%">1</span>
+            <span class="pin" style="--x:65%;--y:60.8%">2</span>
+            <span class="pin" style="--x:86%;--y:81.7%">3</span>
+          </div>
+        </div>
+      </figure>
+      <ol class="legend">
+        <li><span class="pin">1</span><span>В поле <b>«до»</b> напиши самую большую цену, которая вам подходит. Например, 100000. В поле «от» — самую маленькую, его можно оставить пустым.</span></li>
+        <li><span class="pin">2</span><span>Поставь галочку <b>«Только в наличии»</b>. Тогда не будут показаны товары, которые закончились.</span></li>
+        <li><span class="pin">3</span><span>Нажми <span class="btnname">Применить</span>.</span></li>
+      </ol>
+    </div>
+    <div class="text">
+      <p>Ой, пусто! Кондиционеров дешевле 100 000 сом в магазине нет. Это не поломка, просто под такие условия ничего не подошло.</p>
+    </div>
+    <figure>
+      <div class="frame">
+        <div class="bar"><i></i><i></i><i></i><span>…/kondicionery?max=100000</span></div>
+        <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: товары не найдены">
+          <img src="/guide/img/filter-empty.jpg" width="1000" height="190" alt="Надпись: «Товары не найдены. Попробуйте изменить фильтры.», 0 товаров">
+        </div>
+      </div>
+    </figure>
+    <div class="text">
+      <p>Что делать? Нажми кнопку <span class="btnname">Сбросить</span> под «Применить», и все фильтры уберутся. Или поставь цену побольше. Мы написали «до 160000», и нашёлся один кондиционер:</p>
+    </div>
+    <figure>
+      <div class="frame">
+        <div class="bar"><i></i><i></i><i></i><span>…/kondicionery?max=160000&amp;instock=1</span></div>
+        <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: результат фильтра">
+          <img src="/guide/img/filter-result.jpg" width="1280" height="800" alt="После фильтра до 160000 сом найден 1 товар: Кондиционер Midea Blanc 09">
+          <span class="pin" style="--x:20.5%;--y:80.3%">1</span>
+          <span class="pin" style="--x:91%;--y:26.1%">2</span>
+        </div>
+      </div>
+    </figure>
+    <ol class="legend">
+      <li><span class="pin">1</span><span>Новая цена в фильтре: до 160 000 сом.</span></li>
+      <li><span class="pin">2</span><span>Теперь найден 1 товар.</span></li>
+    </ol>
+  </section>
+
+  <!-- 6 -->
+  <section class="step" id="search">
+    <div class="step-head"><span class="sticker">Шаг 6</span><h2>Ищем товар через поиск</h2></div>
+    <div class="text">
+      <p>Если ты знаешь, что ищешь, проще всего это написать.</p>
+    </div>
+    <figure>
+      <div class="frame">
+        <div class="bar"><i></i><i></i><i></i><span>azat-shop.vercel.app</span></div>
+        <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: строка поиска">
+          <img src="/guide/img/search-type.jpg" width="1280" height="70" alt="В строке поиска написано «роутер», справа кнопка «Найти»">
+          <span class="pin" style="--x:25.8%;--y:22%">1</span>
+          <span class="pin" style="--x:81.3%;--y:22%">2</span>
+        </div>
+      </div>
+    </figure>
+    <ol class="legend">
+      <li><span class="pin">1</span><span>Нажми на поле <b>«Искать товары»</b> и напиши слово, например «роутер».</span></li>
+      <li><span class="pin">2</span><span>Нажми <span class="btnname">Найти</span> или клавишу Enter. На телефоне кнопка поиска — это лупа.</span></li>
+    </ol>
+    <figure>
+      <div class="frame">
+        <div class="bar"><i></i><i></i><i></i><span>azat-shop.vercel.app/search?q=роутер</span></div>
+        <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: результаты поиска">
+          <img src="/guide/img/search.jpg" width="1280" height="800" alt="Результаты по запросу «роутер»: 5 товаров">
+          <span class="pin" style="--x:33.6%;--y:18.1%">1</span>
+          <span class="pin" style="--x:23.4%;--y:29.3%">2</span>
+          <span class="pin" style="--x:91%;--y:24.6%">3</span>
+        </div>
+      </div>
+    </figure>
+    <ol class="legend">
+      <li><span class="pin">1</span><span>Здесь написано, что ты искал.</span></li>
+      <li><span class="pin">2</span><span><b>Найденные товары.</b> Сортировка и фильтры тут работают так же, как в разделе.</span></li>
+      <li><span class="pin">3</span><span>Сколько товаров нашлось.</span></li>
+    </ol>
+    <div class="note tip" role="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg>
+      <p><b>Подсказка.</b> Пиши коротко: «роутер», «кондиционер», «Xiaomi». Большие и маленькие буквы не важны. Если ничего не нашлось, проверь, нет ли в слове ошибки.</p>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="step" id="product">
+    <div class="step-head"><span class="sticker">Шаг 7</span><h2>Страница товара</h2></div>
+    <div class="text">
+      <p>Нажми на любой товар, и откроется его страница. Тут про товар рассказано всё.</p>
+    </div>
+    <figure>
+      <div class="frame">
+        <div class="bar"><i></i><i></i><i></i><span>azat-shop.vercel.app/product/wi-fi-router-xiaomi-router-ax3000t</span></div>
+        <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: страница товара">
+          <img src="/guide/img/product.jpg" width="1280" height="600" alt="Страница товара Wi‑Fi роутер Xiaomi: фото, описание, характеристики, цена 21 990 сом, кнопки «В корзину» и «Купить сейчас»">
+          <span class="pin" style="--x:33.6%;--y:47.5%">1</span>
+          <span class="pin" style="--x:19.1%;--y:90.3%">2</span>
+          <span class="pin" style="--x:64.8%;--y:12.2%">3</span>
+          <span class="pin" style="--x:45.7%;--y:30.2%">4</span>
+          <span class="pin" style="--x:48.8%;--y:45.5%">5</span>
+          <span class="pin" style="--x:88.7%;--y:15.8%">6</span>
+          <span class="pin" style="--x:87.9%;--y:23.3%">7</span>
+          <span class="pin" style="--x:92.2%;--y:41.7%">8</span>
+          <span class="pin" style="--x:92.2%;--y:49.7%">9</span>
+        </div>
+      </div>
+    </figure>
+    <ol class="legend">
+      <li><span class="pin">1</span><span><b>Большое фото.</b> Стрелки ‹ и › листают фотографии.</span></li>
+      <li><span class="pin">2</span><span><b>Маленькие фото.</b> Нажми на любое, чтобы рассмотреть его крупно.</span></li>
+      <li><span class="pin">3</span><span><b>Название</b> и оценка покупателей.</span></li>
+      <li><span class="pin">4</span><span><b>Описание</b> — что умеет товар.</span></li>
+      <li><span class="pin">5</span><span><b>Характеристики</b>: раздел, артикул (это номер товара в магазине) и сколько штук осталось.</span></li>
+      <li><span class="pin">6</span><span><b>Цена.</b></span></li>
+      <li><span class="pin">7</span><span><b>«В наличии: 40 шт.»</b> значит, что товар есть и его можно заказать. Если написано «Нет в наличии», купить его пока нельзя.</span></li>
+      <li><span class="pin">8</span><span><span class="btnname">В корзину</span> кладёт товар в корзину, а ты остаёшься на этой странице.</span></li>
+      <li><span class="pin">9</span><span><span class="btnname">Купить сейчас</span> кладёт товар в корзину и сразу открывает её.</span></li>
+    </ol>
+  </section>
+
+  <!-- 8 -->
+  <section class="step" id="add">
+    <div class="step-head"><span class="sticker">Шаг 8</span><h2>Кладём товар в корзину</h2></div>
+    <div class="text">
+      <p>Нажми <span class="btnname">В корзину</span> и смотри: картинка товара полетит в корзину наверху!</p>
+    </div>
+    <figure>
+      <div class="frame">
+        <div class="bar"><i></i><i></i><i></i><span>azat-shop.vercel.app/product/…</span></div>
+        <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: товар летит в корзину">
+          <img src="/guide/img/fly.jpg" width="900" height="420" alt="Маленькая картинка товара летит к корзине, на корзине появилась цифра 1, кнопка стала счётчиком">
+          <span class="pin" style="--x:19.4%;--y:23.8%">1</span>
+          <span class="pin" style="--x:83.9%;--y:5.2%">2</span>
+          <span class="pin" style="--x:63.6%;--y:71.9%">3</span>
+        </div>
+      </div>
+    </figure>
+    <ol class="legend">
+      <li><span class="pin">1</span><span>Картинка товара летит к корзине.</span></li>
+      <li><span class="pin">2</span><span>На корзине появилась <b>красная цифра</b>. Она показывает, сколько товаров внутри.</span></li>
+      <li><span class="pin">3</span><span>Кнопка «В корзину» превратилась в <b>счётчик</b>.</span></li>
+    </ol>
+    <div class="split">
+      <figure class="w-qty">
+        <div class="frame">
+          <div class="bar"><i></i><i></i><i></i><span>Счётчик</span></div>
+          <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: счётчик количества">
+            <img src="/guide/img/qty.jpg" width="344" height="420" alt="Счётчик: минус, число 2, плюс. На корзине цифра 2">
+            <span class="pin" style="--x:15.7%;--y:69%">1</span>
+            <span class="pin" style="--x:49.1%;--y:69%">2</span>
+            <span class="pin" style="--x:82.6%;--y:69%">3</span>
+            <span class="pin" style="--x:62.5%;--y:5.2%">4</span>
+          </div>
+        </div>
+      </figure>
+      <div class="text">
+        <p>Нужно две штуки? Нажми плюс.</p>
+        <ol class="legend">
+          <li><span class="pin">1</span><span><b>«−»</b> убирает одну штуку. Если была одна, товар уйдёт из корзины.</span></li>
+          <li><span class="pin">2</span><span>Сколько штук ты берёшь.</span></li>
+          <li><span class="pin">3</span><span><b>«+»</b> добавляет ещё одну.</span></li>
+          <li><span class="pin">4</span><span>Цифра на корзине тоже выросла.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="step" id="cart">
+    <div class="step-head"><span class="sticker">Шаг 9</span><h2>Смотрим корзину</h2></div>
+    <div class="text">
+      <p>Нажми <span class="btnname">Корзина</span> наверху. Тут лежит всё, что ты выбрал. Корзина запоминается: если закрыть сайт и потом открыть снова на этом же телефоне или компьютере, товары останутся на месте.</p>
+    </div>
+    <figure>
+      <div class="frame">
+        <div class="bar"><i></i><i></i><i></i><span>azat-shop.vercel.app/cart</span></div>
+        <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: корзина">
+          <img src="/guide/img/cart.jpg" width="1280" height="450" alt="Корзина: роутер 2 штуки и кондиционер 1 штука, итого 198 970 сом, кнопка «Перейти к оформлению»">
+          <span class="pin" style="--x:20.5%;--y:51.3%">1</span>
+          <span class="pin" style="--x:68.8%;--y:45.6%">2</span>
+          <span class="pin" style="--x:12.1%;--y:93.8%">3</span>
+          <span class="pin" style="--x:79.7%;--y:67.3%">4</span>
+          <span class="pin" style="--x:97.3%;--y:76.7%">5</span>
+        </div>
+      </div>
+    </figure>
+    <ol class="legend">
+      <li><span class="pin">1</span><span><b>«−» и «+»</b> меняют количество.</span></li>
+      <li><span class="pin">2</span><span><b>Крестик</b> убирает товар из корзины.</span></li>
+      <li><span class="pin">3</span><span><b>«Очистить корзину»</b> убирает всё сразу.</span></li>
+      <li><span class="pin">4</span><span><b>«Итого»</b> — сколько стоит всё вместе. Доставка бесплатная.</span></li>
+      <li><span class="pin">5</span><span><span class="btnname">Перейти к оформлению</span> — следующий шаг.</span></li>
+    </ol>
+  </section>
+
+  <!-- 10 -->
+  <section class="step" id="checkout">
+    <div class="step-head"><span class="sticker">Шаг 10</span><h2>Оформляем заказ вместе со взрослым</h2></div>
+    <div class="note warn" role="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="3"/><path d="M3 21v-1a6 6 0 0 1 12 0v1"/><circle cx="17.5" cy="9.5" r="2.3"/><path d="M16 21v-.5a4.5 4.5 0 0 1 6-4.2"/></svg>
+      <p><b>Позови взрослого.</b> Здесь пишут имя и номер телефона. После кнопки «Подтвердить заказ» магазин получит настоящий заказ и позвонит.</p>
+    </div>
+    <figure>
+      <div class="frame">
+        <div class="bar"><i></i><i></i><i></i><span>azat-shop.vercel.app/checkout</span></div>
+        <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: оформление заказа">
+          <img src="/guide/img/checkout.jpg" width="1280" height="490" alt="Оформление заказа: поля «Имя», «Телефон», «Комментарий к заказу», справа список товаров и кнопка «Подтвердить заказ»">
+          <span class="pin" style="--x:66%;--y:45.1%">1</span>
+          <span class="pin" style="--x:66%;--y:61.8%">2</span>
+          <span class="pin" style="--x:66%;--y:82.7%">3</span>
+          <span class="pin" style="--x:82.8%;--y:29.8%">4</span>
+          <span class="pin" style="--x:94.5%;--y:79.4%">5</span>
+        </div>
+      </div>
+      <figcaption>На картинке пример. Имя и телефон придуманы, этот заказ не отправлялся.</figcaption>
+    </figure>
+    <ol class="legend">
+      <li><span class="pin">1</span><span><b>Имя</b> — как к вам обращаться.</span></li>
+      <li><span class="pin">2</span><span><b>Телефон</b> взрослого. Код +996 уже написан. Набирай только цифры, пробелы появятся сами.</span></li>
+      <li><span class="pin">3</span><span><b>Комментарий</b>: адрес и удобное время доставки. Это поле можно не заполнять.</span></li>
+      <li><span class="pin">4</span><span><b>«Ваш заказ».</b> Проверь товары и сумму.</span></li>
+      <li><span class="pin">5</span><span><span class="btnname">Подтвердить заказ</span> отправляет заказ в магазин.</span></li>
+    </ol>
+    <div class="note tip" role="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg>
+      <p><b>Звёздочка *</b> рядом с названием поля значит, что его обязательно нужно заполнить. Банковскую карту вводить не нужно: сайт её не спрашивает, обо всём договоритесь по телефону.</p>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="step" id="done">
+    <div class="step-head"><span class="sticker">Шаг 11</span><h2>Ура, заказ готов!</h2></div>
+    <div class="split">
+      <figure class="w-small">
+        <div class="frame">
+          <div class="bar"><i></i><i></i><i></i><span>azat-shop.vercel.app/checkout</span></div>
+          <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: заказ оформлен">
+            <img src="/guide/img/success.jpg" width="520" height="380" alt="Экран «Заказ оформлен!» с номером заказа и кнопкой «Вернуться в магазин»">
+            <span class="pin" style="--x:75%;--y:50.3%">1</span>
+            <span class="pin" style="--x:71.5%;--y:77.4%">2</span>
+          </div>
+        </div>
+        <figcaption>Пример экрана. Номер заказа здесь ненастоящий.</figcaption>
+      </figure>
+      <div class="text">
+        <ol class="legend">
+          <li><span class="pin">1</span><span><b>Номер заказа.</b> Запиши его или сфотографируй. Он пригодится, если будете звонить в магазин.</span></li>
+          <li><span class="pin">2</span><span><span class="btnname">Вернуться в магазин</span> ведёт на главную.</span></li>
+        </ol>
+        <p>Скоро магазин позвонит по этому номеру, чтобы подтвердить заказ. Корзина после заказа станет пустой. Так и должно быть.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Phone -->
+  <section class="step" id="phone">
+    <div class="step-head"><span class="sticker">С телефона</span><h2>Если сайт открыт на телефоне</h2></div>
+    <div class="split">
+      <figure class="w-mobile">
+        <div class="frame">
+          <div class="bar"><i></i><i></i><i></i><span>azat-shop.vercel.app</span></div>
+          <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: сайт на телефоне">
+            <img src="/guide/img/mobile.jpg" width="390" height="844" alt="Сайт на телефоне: поиск под логотипом, значок корзины, кружки с разделами, нижнее меню «Главная, Каталог, Корзина»">
+            <span class="pin" style="--x:74.4%;--y:10.9%">1</span>
+            <span class="pin" style="--x:78.2%;--y:4%">2</span>
+            <span class="pin" style="--x:83%;--y:67.4%">3</span>
+            <span class="pin" style="--x:28.2%;--y:94.8%">4</span>
+          </div>
+        </div>
+      </figure>
+      <div class="text">
+        <p>На телефоне сайт выглядит чуть по-другому, но кнопки те же самые.</p>
+        <ol class="legend">
+          <li><span class="pin">1</span><span><b>Поиск</b> находится под логотипом.</span></li>
+          <li><span class="pin">2</span><span><b>Корзина</b> — значок тележки справа.</span></li>
+          <li><span class="pin">3</span><span><b>Разделы.</b> Эти кружки можно листать пальцем вбок.</span></li>
+          <li><span class="pin">4</span><span><b>Нижнее меню</b>: «Главная», «Каталог», «Корзина». Оно всегда внизу экрана.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Help -->
+  <section class="step" id="help">
+    <div class="step-head"><span class="sticker">Помощь</span><h2>Не знаешь, что выбрать? Спроси магазин</h2></div>
+    <div class="text">
+      <p>Магазин не только продаёт, но и устанавливает: кондиционеры, роутеры и камеры видеонаблюдения. Если не понятно, что подойдёт, можно написать или позвонить. Лучше делать это вместе со взрослым.</p>
+    </div>
+    <figure>
+      <div class="frame">
+        <div class="bar"><i></i><i></i><i></i><span>azat-shop.vercel.app</span></div>
+        <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: услуги и связь">
+          <img src="/guide/img/services.jpg" width="1280" height="800" alt="Блок «Услуги» и кнопки «Написать в WhatsApp» и «Позвонить»">
+          <span class="pin" style="--x:22.2%;--y:16%">1</span>
+          <span class="pin" style="--x:70.8%;--y:48.5%">2</span>
+          <span class="pin" style="--x:86.6%;--y:48.5%">3</span>
+        </div>
+      </div>
+    </figure>
+    <ol class="legend">
+      <li><span class="pin">1</span><span><b>Услуги</b> — что умеют мастера магазина.</span></li>
+      <li><span class="pin">2</span><span><span class="btnname">Написать в WhatsApp</span> открывает чат с магазином.</span></li>
+      <li><span class="pin">3</span><span><span class="btnname">Позвонить</span> набирает номер магазина.</span></li>
+    </ol>
+    <div class="contacts">
+      <div class="contact"><small>Телефон и WhatsApp</small><strong>+996 700 321 352</strong><a href="https://wa.me/996700321352" target="_blank" rel="noopener">Открыть чат в WhatsApp</a></div>
+      <div class="contact"><small>Когда работает</small><strong>Каждый день</strong><span>с 9:00 до 21:00</span></div>
+      <div class="contact"><small>Почта</small><strong>support@salqyn.store</strong></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="step" id="faq">
+    <div class="step-head"><span class="sticker">Если что-то не так</span><h2>Что делать, если…</h2></div>
+    <div class="qa">
+      <details>
+        <summary>…в корзине пусто, а я же клал туда товар?</summary>
+        <div>
+          <p>Корзина запоминается только на том телефоне или компьютере, где ты выбирал товары. Если открыть сайт на другом устройстве или в другом браузере, корзина будет пустой. Нажми «Перейти в каталог» и выбери товары снова.</p>
+          <div class="frame w-small" style="max-width:100%">
+            <div class="bar"><i></i><i></i><i></i><span>azat-shop.vercel.app/cart</span></div>
+            <div class="shot" tabindex="0" role="button" aria-label="Увеличить картинку: пустая корзина">
+              <img src="/guide/img/cart-empty.jpg" width="520" height="330" alt="Экран «Корзина пуста» с кнопкой «Перейти в каталог»">
+            </div>
+          </div>
+        </div>
+      </details>
+      <details>
+        <summary>…я нажал что-то не то и запутался?</summary>
+        <div><p>Нажми на логотип со снежинкой, и ты вернёшься на главную. Ещё можно нажать стрелку «Назад» в браузере.</p></div>
+      </details>
+      <details>
+        <summary>…написано «Товары не найдены»?</summary>
+        <div><p>Если ты включал фильтры, нажми «Сбросить». Если искал словом, проверь, правильно ли оно написано, или напиши слово короче.</p></div>
+      </details>
+      <details>
+        <summary>…вместо кнопки «В корзину» написано «Нет в наличии»?</summary>
+        <div><p>Этот товар закончился. Выбери другой или спроси в WhatsApp, когда его привезут.</p></div>
+      </details>
+      <details>
+        <summary>…заказ не отправляется?</summary>
+        <div><p>Над кнопкой появится красная надпись, она подскажет, что не так. Чаще всего забыли имя или написали телефон не полностью: после +996 должно быть 9 цифр.</p></div>
+      </details>
+      <details>
+        <summary>…я случайно открыл «Админку»?</summary>
+        <div><p>Ничего страшного. Если ты покупатель, нажми «Назад» в браузере. Админка нужна продавцу, без пароля туда не пустят.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- Glossary -->
+  <section class="step" id="words">
+    <div class="step-head"><span class="sticker">Словарик</span><h2>Слова, которые встречаются на сайте</h2></div>
+    <dl class="dict">
+      <div><dt>Корзина</dt><dd>Список того, что ты хочешь купить.</dd></div>
+      <div><dt>Каталог</dt><dd>Все разделы магазина, как оглавление в книге.</dd></div>
+      <div><dt>Категория, раздел</dt><dd>Группа похожих товаров, например «Роутеры».</dd></div>
+      <div><dt>Скидка</dt><dd>Товар продаётся дешевле, чем раньше.</dd></div>
+      <div><dt>Сортировка</dt><dd>Порядок, в котором показаны товары.</dd></div>
+      <div><dt>Фильтр</dt><dd>Прячет товары, которые не подходят.</dd></div>
+      <div><dt>Рейтинг</dt><dd>Средняя оценка покупателей, от 1 до 5 звёзд.</dd></div>
+      <div><dt>Отзывы</dt><dd>Что покупатели написали о товаре.</dd></div>
+      <div><dt>Артикул</dt><dd>Номер товара в магазине.</dd></div>
+      <div><dt>В наличии</dt><dd>Товар есть на складе, его можно заказать.</dd></div>
+      <div><dt>Оформить заказ</dt><dd>Сообщить магазину, что вы хотите купить, и оставить телефон.</dd></div>
+      <div><dt>сом</dt><dd>Деньги Кыргызстана. Все цены на сайте в сомах.</dd></div>
+    </dl>
+  </section>
+
+  <!-- Quiz -->
+  <section class="step" id="quiz">
+    <div class="step-head"><span class="sticker">Проверь себя</span><h2>Пять вопросов</h2></div>
+    <div class="text"><p>Подумай над ответом, а потом нажми на вопрос, чтобы проверить себя.</p></div>
+    <div class="qa quiz">
+      <details><summary><span class="q">1</span>Как быстро вернуться на главную страницу?</summary><div><p>Нажать на логотип со снежинкой.</p></div></details>
+      <details><summary><span class="q">2</span>Что значит красный ярлык «−20%»?</summary><div><p>Скидку: товар стоит на 20% дешевле, чем раньше.</p></div></details>
+      <details><summary><span class="q">3</span>Как взять две штуки одного товара?</summary><div><p>Нажать «В корзину», а потом «+» на счётчике.</p></div></details>
+      <details><summary><span class="q">4</span>Фильтр показал «Товары не найдены». Что делать?</summary><div><p>Нажать «Сбросить» или поставить цену побольше.</p></div></details>
+      <details><summary><span class="q">5</span>С кем нажимать «Подтвердить заказ»?</summary><div><p>Только вместе со взрослым, ведь это настоящая покупка.</p></div></details>
+    </div>
+  </section>
+
+  <p class="end">Скриншоты сняты с сайта azat-shop.vercel.app 24 октября 2026 года. Если на сайте что-то поменяется, кнопки могут выглядеть немного иначе, но работать будут так же. <a href="/">← Вернуться в магазин</a></p>
+</main>
+
+<div class="lb" id="lb" hidden>
+  <span class="lb-hint">Двигай картинку пальцем или колёсиком</span>
+  <button class="lb-close" id="lb-close" type="button">Закрыть ✕</button>
+  <div class="lb-inner" id="lb-inner"></div>
+</div>
+
+<script>
+(function () {
+  var lb = document.getElementById('lb');
+  var inner = document.getElementById('lb-inner');
+  var closeBtn = document.getElementById('lb-close');
+  var lastFocus = null;
+
+  function open(shot) {
+    var img = shot.querySelector('img');
+    var nat = parseInt(img.getAttribute('width'), 10) || img.naturalWidth || 800;
+    var target = Math.max(window.innerWidth - 32, 820);
+    var w = Math.round(Math.min(target, nat * 2, Math.max(nat, 1280)));
+    var clone = shot.cloneNode(true);
+    clone.removeAttribute('tabindex');
+    clone.removeAttribute('role');
+    clone.removeAttribute('aria-label');
+    inner.innerHTML = '';
+    inner.style.width = w + 'px';
+    inner.appendChild(clone);
+    clone.addEventListener('click', close);
+    lastFocus = shot;
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+  function close() {
+    lb.hidden = true;
+    inner.innerHTML = '';
+    document.body.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  }
+
+  document.querySelectorAll('main .shot').forEach(function (shot) {
+    shot.addEventListener('click', function () { open(shot); });
+    shot.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(shot); }
+    });
+  });
+  closeBtn.addEventListener('click', close);
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lb.hidden) close(); });
+})();
+</script>
+
+</body>
+</html>

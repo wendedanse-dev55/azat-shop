@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "10mb",
     },
   },
+  async rewrites() {
+    // Static buyers' guide lives in public/guide; serve it at /guide.
+    return [{ source: "/guide", destination: "/guide/index.html" }];
+  },
 };
 
 export default nextConfig;
