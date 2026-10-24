@@ -49,10 +49,6 @@ export default async function LoginPage({
         >
           Войти
         </button>
-
-        <p className="text-center text-xs text-muted">
-          Пароль по умолчанию: <code className="font-mono">admin123</code>
-        </p>
       </form>
     </div>
   );
